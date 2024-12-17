@@ -19,8 +19,8 @@ if (rc != TREXIO_SUCCESS) {
 
 //Read the nuclear repulsion energy
 
-double energy; // Variable where the energy is read
-rc = trexio_read_nucleus_repulsion(trexio_file, &energy);
+double nuc_repul; // Variable where the nuclear repulsion energy is read
+rc = trexio_read_nucleus_repulsion(trexio_file, &nuc_repul);
 // Check the return code to be sure reading was OK
 if (rc != TREXIO_SUCCESS) {
     fprintf(stderr, "TREXIO Error reading nuclear repulsion energy:\n%s\n",
@@ -56,7 +56,7 @@ int64_t elements = mo_num*mo_num; // Calculate number of elements to store in da
 //Allocate data array
 double* data = malloc(elements*sizeof(double)); // Request mo_num x mo_num doubles
 if (data == NULL) { // Check that the allocation was OK
-    fprintf(stderr, "Allocation of data array for one-electron inetgrals failed\n");
+    fprintf(stderr, "Allocation of data array for one-electron integrals failed\n");
     exit(-1);
 }
 //Use TREXIO function to fill data array with one-electron integrals
@@ -67,6 +67,19 @@ if (rc != TREXIO_SUCCESS) {
     trexio_string_of_error(rc));
     exit(1);
 }
+
+//Calculate the core Hamiltonian
+
+double core_H = 0;
+for (int i=0; i < n_up; i++){ // Iterate over the occupied orbitals
+    core_H = core_H + data[i]; // Get the value the integral and add --> Something is wrong here, should it be 2*i?
+    printf("%9.6lf\n", data[i]);
+} 
+core_H = core_H * 2; // Multiply by two for closed-shell
+
+//Free the data array
+free(data);
+data = NULL; //Reset pointer
 
 //Read in the two-electron integrals
 
@@ -115,14 +128,53 @@ if (rc != TREXIO_SUCCESS) {
 }
 trexio_file = NULL;
 
-//Print some of the data that was read from the TREXIO file for cross-checking
-printf("Nuclear repulsion energy:    %9.6lf\n", energy);
+/*Print some indexes to get used to the order of the integrals
+for (int n=0; n < 200; n++) {
+    printf("%2d %2d %2d %2d\n", index[4*n], index[4*n+1], index[4*n+2], index[4*n+3]);
+}*/
+
+// Calculate the electronic interaction energy from the two-electron integrals
+
+double el_inter = 0; //Variable to store the electronic interaction energy
+for (int n=0; n < n_integrals; n++) { //Iterate over the stored integrals
+    //Get the indices
+    int i = index[4*n];
+    int j = index[4*n+1];
+    int k = index[4*n+2];
+    int l = index[4*n+3];
+    if (i < n_up && j < n_up) { //Check if the first two indices belong to occupied orbitals
+        if (i == j && j == k && k == l) {
+            el_inter = el_inter + value[n]; //all indices are the same, only add once
+            printf("S: %2d, %2d, %2d, %2d    %9.6lf\n", i, j, k, l, value[n]);
+        }
+        else if (k == i && l ==j) { 
+            el_inter = el_inter + (2 * 2 * value[n]); //Add x2 the Coulomb integral, *2 for permutational symmetry
+            printf("J: %2d, %2d, %2d, %2d    %9.6lf\n", i, j, k, l, value[n]);
+        }
+        else if (i == j && k == l) {
+            el_inter = el_inter - (4 * value[n]); //Substract the exchange integral, *4 for permutational symmetry
+            printf("K: %2d, %2d, %2d, %2d    %9.6lf\n", i, j, k, l, value[n]);
+        }
+    }
+    else if (l >= n_up) {
+        break; //Break the loop once there are only integrals with virtual orbitals in the list
+    }    
+}
+
+// Calculate the Hartree-Fock energy
+
+double HF_energy = nuc_repul + core_H + el_inter;
+
+//Print a summary
+printf("Nuclear repulsion energy:    %9.6lf\n", nuc_repul);
+printf("Core Hamiltonian: %9.6lf\n", core_H);
+printf("Electronic interaction energy: %9.6lf\n", el_inter);
+printf("Hartree-Fock energy: %9.6lf\n", HF_energy);
 printf("Number of occupied orbitals:  %d\n", n_up);
 printf("Number of molecular orbitals: %d\n", mo_num);
+printf("Number of two-electron integrals: %ld\n", n_integrals);
 
 //Free the allocated arrays
-free(data);
-data = NULL; //Reset pointer
 free(index);
 index = NULL; //Reset pointer? Either skip this add "const" in variable defintion
 free(value);
