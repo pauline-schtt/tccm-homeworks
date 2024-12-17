@@ -2,13 +2,34 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <trexio.h>
 
-int main(){
+int main(int argc, char *argv[]){
 
-//Open a TREXIO file
+//Check if a HDF5 file was specified as argument
+if (argc != 2){
+    fprintf(stderr, "Wrong number of arguments.\nPlease specify a HDF5 file containing the data to use.\nUsage: ./HF 'path/to/hdf5'\n");
+}
 
-const char* filename = "./data/h2o.h5";
+//Greet the user
+printf("Welcome to the Hartree-Fock energy calculation.\n");
+
+/*Set up file for output
+
+char* outfile = strtok(argv[1], ".h5"); //Get name of HDF5 file for input
+printf("%s", outfile);
+outfile = strcat(outfile, ".out"); //Add .out extension
+FILE* output = fopen("h2o.out", "w") ;//Open outfile for writing
+//Check for errors
+if (outfile == NULL) {
+    printf("Error opening output file for writing\n");
+    exit(-2);
+}*/
+
+//Open TREXIO file for reading the data
+
+const char* filename = argv[1];
 
 trexio_exit_code rc;
 trexio_t* trexio_file = trexio_open(filename, 'r', TREXIO_AUTO, &rc);
@@ -70,10 +91,12 @@ if (rc != TREXIO_SUCCESS) {
 
 //Calculate one-electron energy contribution
 
+printf("\nOne-electron integrals:\n i    value\n");
+
 double one_el_energy = 0;
 for (int i=0; i < n_up; i++){ // Iterate over the occupied orbitals
     one_el_energy = one_el_energy + 2 * data[i*mo_num+i]; // Get the value the integral and add
-    printf("%9.6lf\n", data[i*mo_num+i]);
+    printf("%2d    %9.6lf\n", i+1, data[i*mo_num+i]);
 } 
 
 //Free the data array
@@ -132,9 +155,11 @@ for (int n=0; n < 200; n++) {
     printf("%2d %2d %2d %2d\n", index[4*n], index[4*n+1], index[4*n+2], index[4*n+3]);
 }*/
 
-// Calculate the electronic interaction energy from the two-electron integrals
+// Calculate the two-electron energy contribution
 
-double el_inter = 0; //Variable to store the electronic interaction energy
+printf("\nTwo-electron integrals:\n       i  j  k  l     value\n");
+
+double two_el_energy = 0; //Variable to store the two-electron interaction energy
 for (int n=0; n < n_integrals; n++) { //Iterate over the stored integrals
     //Get the indices
     int i = index[4*n];
@@ -143,16 +168,16 @@ for (int n=0; n < n_integrals; n++) { //Iterate over the stored integrals
     int l = index[4*n+3];
     if (i < n_up && j < n_up) { //Check if the first two indices belong to occupied orbitals
         if (i == j && j == k && k == l) {
-            el_inter = el_inter + value[n]; //all indices are the same, only add once
-            printf("S: %2d, %2d, %2d, %2d    %9.6lf\n", i, j, k, l, value[n]);
+            two_el_energy = two_el_energy + value[n]; //all indices are the same, only add once
+            printf("2J-K: %2d %2d %2d %2d    %9.6lf\n", i, j, k, l, value[n]);
         }
         else if (k == i && l ==j) { 
-            el_inter = el_inter + (2 * 2 * value[n]); //Add x2 the Coulomb integral, *2 for permutational symmetry
-            printf("J: %2d, %2d, %2d, %2d    %9.6lf\n", i, j, k, l, value[n]);
+            two_el_energy = two_el_energy + (2 * 2 * value[n]); //Add x2 the Coulomb integral, *2 for permutational symmetry
+            printf("J:    %2d %2d %2d %2d    %9.6lf\n", i, j, k, l, value[n]);
         }
         else if (i == j && k == l) {
-            el_inter = el_inter - (2 * value[n]); //Substract the exchange integral, *2 for permutational symmetry
-            printf("K: %2d, %2d, %2d, %2d    %9.6lf\n", i, j, k, l, value[n]);
+            two_el_energy = two_el_energy - (2 * value[n]); //Substract the exchange integral, *2 for permutational symmetry
+            printf("K:    %2d %2d %2d %2d    %9.6lf\n", i, j, k, l, value[n]);
         }
     }
     else if (l >= n_up) {
@@ -160,24 +185,33 @@ for (int n=0; n < n_integrals; n++) { //Iterate over the stored integrals
     }    
 }
 
-// Calculate the Hartree-Fock energy
-
-double HF_energy = nuc_repul + one_el_energy + el_inter;
-
-//Print a summary
-printf("Nuclear repulsion energy:    %9.6lf\n", nuc_repul);
-printf("Core Hamiltonian: %9.6lf\n", one_el_energy);
-printf("Electronic interaction energy: %9.6lf\n", el_inter);
-printf("Hartree-Fock energy: %9.6lf\n", HF_energy);
-printf("Number of occupied orbitals:  %d\n", n_up);
-printf("Number of molecular orbitals: %d\n", mo_num);
-printf("Number of two-electron integrals: %ld\n", n_integrals);
-
 //Free the allocated arrays
 free(index);
 index = NULL; //Reset pointer? Either skip this add "const" in variable defintion
 free(value);
 value = NULL;
 
+// Calculate the Hartree-Fock energy
+
+double HF_energy = nuc_repul + one_el_energy + two_el_energy;
+
+//Print a summary and close the output file
+printf("\nNuclear repulsion energy:    %9.6lf\n", nuc_repul);
+printf("One-electron energy: %9.6lf\n", one_el_energy);
+printf("Two-electron energy: %9.6lf\n", two_el_energy);
+printf("Hartree-Fock energy: %9.6lf\n", HF_energy);
+printf("Number of occupied orbitals:  %d\n", n_up);
+printf("Number of molecular orbitals: %d\n", mo_num);
+printf("Number of two-electron integrals: %ld\n", n_integrals);
+
+//fclose(output);
+
+//Finalize the calculation
+printf("\nYour calculation is done.\n");
+//printf("Hartree-Fock energy: %9.5lf\n", HF_energy);
+//printf("You'll find a more detailed summary of your calculation in ...");
+printf("Thank you for using the program!\n");
+
 return 0;
+
 }
