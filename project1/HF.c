@@ -151,7 +151,7 @@ for (int n=0; n < n_integrals; n++) { //Iterate over the stored integrals
             printf("J: %2d, %2d, %2d, %2d    %9.6lf\n", i, j, k, l, value[n]);
         }
         else if (i == j && k == l) {
-            el_inter = el_inter - (4 * value[n]); //Substract the exchange integral, *4 for permutational symmetry
+            el_inter = el_inter - (2 * value[n]); //Substract the exchange integral, *2 for permutational symmetry
             printf("K: %2d, %2d, %2d, %2d    %9.6lf\n", i, j, k, l, value[n]);
         }
     }
