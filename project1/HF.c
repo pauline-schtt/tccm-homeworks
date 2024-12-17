@@ -68,14 +68,13 @@ if (rc != TREXIO_SUCCESS) {
     exit(1);
 }
 
-//Calculate the core Hamiltonian
+//Calculate one-electron energy contribution
 
-double core_H = 0;
+double one_el_energy = 0;
 for (int i=0; i < n_up; i++){ // Iterate over the occupied orbitals
-    core_H = core_H + data[i]; // Get the value the integral and add --> Something is wrong here, should it be 2*i?
-    printf("%9.6lf\n", data[i]);
+    one_el_energy = one_el_energy + 2 * data[i*mo_num+i]; // Get the value the integral and add
+    printf("%9.6lf\n", data[i*mo_num+i]);
 } 
-core_H = core_H * 2; // Multiply by two for closed-shell
 
 //Free the data array
 free(data);
@@ -163,11 +162,11 @@ for (int n=0; n < n_integrals; n++) { //Iterate over the stored integrals
 
 // Calculate the Hartree-Fock energy
 
-double HF_energy = nuc_repul + core_H + el_inter;
+double HF_energy = nuc_repul + one_el_energy + el_inter;
 
 //Print a summary
 printf("Nuclear repulsion energy:    %9.6lf\n", nuc_repul);
-printf("Core Hamiltonian: %9.6lf\n", core_H);
+printf("Core Hamiltonian: %9.6lf\n", one_el_energy);
 printf("Electronic interaction energy: %9.6lf\n", el_inter);
 printf("Hartree-Fock energy: %9.6lf\n", HF_energy);
 printf("Number of occupied orbitals:  %d\n", n_up);
