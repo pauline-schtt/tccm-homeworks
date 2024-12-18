@@ -21,18 +21,6 @@ else if (argc == 2){
 //Greet the user
 printf("Welcome to the Hartree-Fock energy calculation.\n");
 
-/*Set up file for output
-
-char* outfile = strtok(argv[1], ".h5"); //Get name of HDF5 file for input
-printf("%s", outfile);
-outfile = strcat(outfile, ".out"); //Add .out extension
-FILE* output = fopen("h2o.out", "w") ;//Open outfile for writing
-//Check for errors
-if (outfile == NULL) {
-    printf("Error opening output file for writing\n");
-    exit(-2);
-}*/
-
 //Open TREXIO file for reading the data
 
 trexio_exit_code rc;
@@ -199,7 +187,7 @@ value = NULL;
 
 double HF_energy = nuc_repul + one_el_energy + two_el_energy;
 
-//Print a summary and close the output file
+//Print a summary 
 printf("\nNuclear repulsion energy:    %9.6lf\n", nuc_repul);
 printf("One-electron energy: %9.6lf\n", one_el_energy);
 printf("Two-electron energy: %9.6lf\n", two_el_energy);
@@ -208,12 +196,8 @@ printf("Number of occupied orbitals:  %d\n", n_up);
 printf("Number of molecular orbitals: %d\n", mo_num);
 printf("Number of two-electron integrals: %ld\n", n_integrals);
 
-//fclose(output);
-
 //Finalize the calculation
 printf("\nYour calculation is done.\n");
-//printf("Hartree-Fock energy: %9.5lf\n", HF_energy);
-//printf("You'll find a more detailed summary of your calculation in ...");
 printf("Thank you for using the program!\n");
 
 return 0;
