@@ -7,9 +7,15 @@
 
 int main(int argc, char *argv[]){
 
+char* filename;
+
 //Check if a HDF5 file was specified as argument
 if (argc != 2){
-    fprintf(stderr, "Wrong number of arguments.\nPlease specify a HDF5 file containing the data to use.\nUsage: ./HF 'path/to/hdf5'\n");
+    fprintf(stderr, "No HDF5 file containing the data was specified. You can do so by using the program as follows: ./HF 'path/to/hdf5' or by providing the path for your file below:\nPath to HDF5 file: ");
+    scanf("%s", filename);
+}
+else if (argc == 2){
+    filename = argv[1];
 }
 
 //Greet the user
@@ -28,8 +34,6 @@ if (outfile == NULL) {
 }*/
 
 //Open TREXIO file for reading the data
-
-const char* filename = argv[1];
 
 trexio_exit_code rc;
 trexio_t* trexio_file = trexio_open(filename, 'r', TREXIO_AUTO, &rc);
@@ -95,7 +99,7 @@ printf("\nOne-electron integrals:\n i    value\n");
 
 double one_el_energy = 0;
 for (int i=0; i < n_up; i++){ // Iterate over the occupied orbitals
-    one_el_energy = one_el_energy + 2 * data[i*mo_num+i]; // Get the value the integral and add
+    one_el_energy = one_el_energy + 2 * data[i*mo_num+i]; // Get the value of the integral and add
     printf("%2d    %9.6lf\n", i+1, data[i*mo_num+i]);
 } 
 
@@ -169,15 +173,15 @@ for (int n=0; n < n_integrals; n++) { //Iterate over the stored integrals
     if (i < n_up && j < n_up) { //Check if the first two indices belong to occupied orbitals
         if (i == j && j == k && k == l) {
             two_el_energy = two_el_energy + value[n]; //all indices are the same, only add once
-            printf("2J-K: %2d %2d %2d %2d    %9.6lf\n", i, j, k, l, value[n]);
+            printf("2J-K: %2d %2d %2d %2d    %9.6lf\n", i+1, j+1, k+1, l+1, value[n]);
         }
         else if (k == i && l ==j) { 
             two_el_energy = two_el_energy + (2 * 2 * value[n]); //Add x2 the Coulomb integral, *2 for permutational symmetry
-            printf("J:    %2d %2d %2d %2d    %9.6lf\n", i, j, k, l, value[n]);
+            printf("J:    %2d %2d %2d %2d    %9.6lf\n", i+1, j+1, k+1, l+1, value[n]);
         }
         else if (i == j && k == l) {
             two_el_energy = two_el_energy - (2 * value[n]); //Substract the exchange integral, *2 for permutational symmetry
-            printf("K:    %2d %2d %2d %2d    %9.6lf\n", i, j, k, l, value[n]);
+            printf("K:    %2d %2d %2d %2d    %9.6lf\n", i+1, j+1, k+1, l+1, value[n]);
         }
     }
     else if (l >= n_up) {
