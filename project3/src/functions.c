@@ -86,9 +86,18 @@ int validate_atoms(double* masses, double* epsilon, double* sigma, int n_atoms) 
     return 1;
 }
 
+// Function to open output file
+FILE* open_output(const char* filename) {
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        fprintf(stderr, "Could not open file %s for writing.\n", filename);
+        exit(1);
+    }
+    return file;
+}
+
 // Function to calculate internuclear distances
-double** calculate_distances(double** coords, int n_atoms) {
-    double** distances = allocate_2d_array(n_atoms, n_atoms);
+void calculate_distances(double** coords, double** distances, int n_atoms) {
     
     for (int i = 0; i < n_atoms; i++) {
         distances[i][i] = 0.0;  // Distance to the atom itself is 0.0
@@ -103,8 +112,6 @@ double** calculate_distances(double** coords, int n_atoms) {
             distances[j][i] = r;
         }
     }
-    
-    return distances; // 2D array of size n_atoms x n_atoms
 }
 
 // Function to calculate the Lennard-Jones potential
@@ -174,6 +181,9 @@ void calculate_accelerations(double** coords,
                              double sigma,
                              double** distances, 
                              double** accelerations) {
+
+    calculate_distances(coords, distances, n_atoms); // Update the 2D array of distances    
+
     for (int i = 0; i < n_atoms; i++) {
         for (int j = 0; j < n_atoms; j++) {
             if (i != j) {  // To avoid self-interaction
@@ -192,3 +202,34 @@ void calculate_accelerations(double** coords,
         }
     }
 }
+
+// Function to update positions
+void update_positions(double** coords,
+                      double** velocities,
+                      double** accelerations,
+                      double dt,
+                      int n_atoms) {
+    double dt_2 = 0.5 * dt * dt; //calculate 0.5*dt^2 only once
+    for (int i = 0; i < n_atoms; i++) {
+        // Calculate new positions
+        coords[i][0] += velocities[i][0] * dt + accelerations[i][0] * dt_2;
+        coords[i][1] += velocities[i][1] * dt + accelerations[i][1] * dt_2;
+        coords[i][2] += velocities[i][2] * dt + accelerations[i][2] * dt_2;
+    }
+}
+
+// Function to update velocities
+void update_velocities(double** velocities,
+                       double** accelerations,
+                       double dt,
+                       int n_atoms) {
+    for (int i = 0; i < n_atoms; i++) {
+        // Calculate new velocities
+        velocities[i][0] += 0.5 * accelerations[i][0] * dt;
+        velocities[i][1] += 0.5 * accelerations[i][1] * dt;
+        velocities[i][2] += 0.5 * accelerations[i][2] * dt;
+    }
+}
+
+
+
