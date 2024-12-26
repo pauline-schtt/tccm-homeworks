@@ -86,6 +86,16 @@ int validate_atoms(double* masses, double* epsilon, double* sigma, int n_atoms) 
     return 1;
 }
 
+// Function to open output file
+FILE* open_output(const char* filename) {
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        fprintf(stderr, "Could not open file %s for writing.\n", filename);
+        exit(1);
+    }
+    return file;
+}
+
 // Function to calculate internuclear distances
 void calculate_distances(double** coords, double** distances, int n_atoms) {
     

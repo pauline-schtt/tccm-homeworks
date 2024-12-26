@@ -65,17 +65,41 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    // Open file for writing the trajectory
+    const char* trajectory_name = "trajectory.xyz";
+    FILE* trajectory_file = open_output(trajectory_name);  
+
     // Run 1000 steps of MD simulation
     int n_steps = 1000; //number of steps
     double dt = 0.2; //timestep in fs
     
+    double kinetic_energy;
+    double potential_energy;
+    double total_energy;
+
     for (int i =0; i < n_steps; i++){
+
+        // Update positions, velocities and accelerations
         update_positions(coords, velocities, accelerations, dt, n_atoms);
-        update_velocities(velocities, accelerations, dt, n_atoms);
+        update_velocities(velocities, accelerations, dt, n_atoms); // First velocity update with old accelerations
         calculate_accelerations(coords, masses, n_atoms, epsilon, sigma, distances, accelerations);
-        update_velocities(velocities, accelerations, dt, n_atoms);
-        //printf("Iteration %d successful\n", i+1);
+        update_velocities(velocities, accelerations, dt, n_atoms); // Second velocity update with new accelerations
+        
+        // Calculate and print energies
+        kinetic_energy = calculate_kinetic_energy(velocities, masses, n_atoms);
+        potential_energy = calculate_potential_energy(distances, n_atoms, epsilon, sigma);
+        total_energy = calculate_total_energy(kinetic_energy, potential_energy);
+        fprintf(trajectory_file, "\n%d\n#Step %d: %10.6e %10.6e %10.6e\n", 
+                n_atoms, i, kinetic_energy, potential_energy, total_energy);
+        // Print coordinates
+        for (int i = 0; i < n_atoms; i++) {
+            fprintf(trajectory_file, "Ar %8.6e %8.6e %8.6e\n", 
+                    coords[i][0], coords[i][1], coords[i][2]); 
+        }
     }
+    
+    // Close output file
+    fclose(trajectory_file);
     
     /*
     // Calculate and print accelerations
