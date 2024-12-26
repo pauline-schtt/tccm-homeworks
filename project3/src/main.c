@@ -17,10 +17,11 @@ int main(int argc, char *argv[]) {
     
     // Read number of atoms
     int n_atoms = read_natoms(filename);
-    printf("Number of atoms: %d\n", n_atoms);
+    //printf("Number of atoms: %d\n", n_atoms);
 
     // Allocate arrays
     double** coords = allocate_2d_array(n_atoms, 3);
+    double** distances = allocate_2d_array(n_atoms, n_atoms);
     double* masses = (double*)malloc(n_atoms * sizeof(double));
     if (masses == NULL) {
         fprintf(stderr, "Memory allocation failed for masses!\n");
@@ -38,7 +39,8 @@ int main(int argc, char *argv[]) {
         free(masses);
         return 1;
     }
-
+    
+    /*
     // Calculate and print distances
     double** distances = calculate_distances(coords, n_atoms);
     printf("\nDistances between pairs of atoms:\n");
@@ -47,7 +49,15 @@ int main(int argc, char *argv[]) {
         printf("Atom %d - atom %d: %f\n", i, j, distances[i][j]);
         }
     }
+    */
 
+    // Allocate array for velocities and initialize them to zero
+    double** velocities = allocate_2d_array(n_atoms, 3);
+    for (int i = 0; i < n_atoms; i++) {
+        for (int j = 0; j < 3; j++) {
+            velocities[i][j] = 0.0;
+        }
+    }
     // Allocate array for accelerations and initialize them to zero
     double** accelerations = allocate_2d_array(n_atoms, 3);
     for (int i = 0; i < n_atoms; i++) {
@@ -56,6 +66,19 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    // Run 1000 steps of MD simulation
+    int n_steps = 1000; //number of steps
+    double dt = 0.2; //timestep in fs
+    
+    for (int i =0; i < n_steps; i++){
+        update_positions(coords, velocities, accelerations, dt, n_atoms);
+        update_velocities(velocities, accelerations, dt, n_atoms);
+        calculate_accelerations(coords, masses, n_atoms, epsilon, sigma, distances, accelerations);
+        update_velocities(velocities, accelerations, dt, n_atoms);
+        //printf("Iteration %d successful\n", i+1);
+    }
+    
+    /*
     // Calculate and print accelerations
     calculate_accelerations(coords, masses, n_atoms, epsilon, sigma, distances, accelerations);
     printf("\nAccelerations for each atom:\n");
@@ -67,10 +90,12 @@ int main(int argc, char *argv[]) {
     // Calculate and print total potential energy
     double total_potential = calculate_potential_energy(distances, n_atoms, epsilon, sigma);
     printf("\nTotal potential energy: %e\n", total_potential);
+    */    
 
     // Free all allocated memory
     free_2d_array(coords, n_atoms);
     free_2d_array(distances, n_atoms);
+    free_2d_array(velocities, n_atoms);
     free_2d_array(accelerations, n_atoms);
     free(masses);
 
