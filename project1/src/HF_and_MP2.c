@@ -34,7 +34,15 @@ int main(int argc, char *argv[]) {
     }
 
     // Greet the user
-    printf("Welcome to the Hartree-Fock and MP2 energy calculation.\n");
+    // Start with an ASCII art of the program name
+    printf(" ___  ___  ________      _____ ______   ________    _______     \n");
+    printf("|\\  \\|\\  \\|\\  _____\\    |\\   _ \\  _   \\|\\   __  \\  /  ___  \\    \n");
+    printf("\\ \\  \\\\\\  \\ \\  \\__/     \\ \\  \\\\\\__\\ \\  \\ \\  \\|\\  \\/__/|_/  /|   \n");
+    printf(" \\ \\   __  \\ \\   __\\     \\ \\  \\\\|__| \\  \\ \\   ____\\__|//  / /   \n");
+    printf("  \\ \\  \\ \\  \\ \\  \\_|      \\ \\  \\    \\ \\  \\ \\  \\___|   /  /_/__  \n");
+    printf("   \\ \\__\\ \\__\\ \\__\\        \\ \\__\\    \\ \\__\\ \\__\\     |\\________\\\n");
+    printf("    \\|__|\\|__|\\|__|         \\|__|     \\|__|\\|__|      \\|_______|\n");
+    printf("\nWelcome to the Hartree-Fock and MP2 energy calculation program.\n");
 
     // Open TREXIO file for reading the data
     trexio_exit_code rc;
@@ -131,7 +139,7 @@ int main(int argc, char *argv[]) {
     }
 
     //Calculate one-electron energy contribution
-    printf("\nCalculating Hartree-Fock energy...\n");
+    printf("\nCalculating the Hartree-Fock energy...\n");
     // printf("\nOne-electron integrals:\n i    value\n");
     double one_el_energy = 0;
     for (int i=0; i < n_up; i++) { //! Iterate over the occupied orbitals
@@ -187,7 +195,7 @@ int main(int argc, char *argv[]) {
 
     // Calculate MP2 energy
     double MP2_energy = 0.0;
-    printf("\nCalculating MP2 energy correction...\n");
+    printf("\nCalculating the MP2 energy correction...\n");
     for (int i = 0; i < n_up; i++) {
         for (int j = 0; j < n_up; j++) {
             for (int a = n_up; a < mo_num; a++) {
