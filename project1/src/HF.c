@@ -107,7 +107,7 @@ if (rc != TREXIO_SUCCESS) {
     exit(1);
 }
 //Allocate memory for storing the indices
-int32_t* index = malloc(4 * n_integrals * sizeof(int32_t)); //! Array of indices of the two-electron integrals
+int32_t* index = malloc(4 * n_integrals * sizeof(int32_t));
 if (index == NULL) { //Check that the allocation was OK
     fprintf(stderr, "Allocation of index array for two-electron integrals failed\n");
     exit-(1);
