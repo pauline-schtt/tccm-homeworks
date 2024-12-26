@@ -1,15 +1,15 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -lm
+CFLAGS = -I/usr/local/include -L/usr/local/lib -ltrexio
 
 # Directories
 SRC_DIR = src
 
 # Output
-TARGET = MD
+TARGET = HF_and_MP2
 
 # Source files
-SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/functions.c
+SRCS = $(SRC_DIR)/HF_and_MP2.c
 
 # Rules
 all: $(TARGET)
