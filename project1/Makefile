@@ -20,3 +20,9 @@ $(TARGET):
 	@echo "Done!"
 
 .PHONY: all clean
+
+# Clean up
+clean:
+	@echo "Cleaning up..."
+	rm -f $(TARGET)
+	@echo "Done!"
