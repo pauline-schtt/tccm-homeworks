@@ -9,7 +9,7 @@ SRC_DIR = src
 TARGET = HF_and_MP2
 
 # Source files
-SRCS = $(SRC_DIR)/HF_and_MP2.c $(SRC_DIR)/HF_functions.c
+SRCS = $(SRC_DIR)/HF_and_MP2.c $(SRC_DIR)/HF_functions.c $(SRC_DIR)/MP2_functions.c
 
 # Rules
 all: $(TARGET)
