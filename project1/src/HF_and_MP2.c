@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     rc = trexio_read_nucleus_repulsion(trexio_file, &nuc_repul);
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading nuclear repulsion energy:\n%s\n",
-        trexio_string_of_error(rc));
+                trexio_string_of_error(rc));
         exit(1);
     }
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     rc = trexio_read_electron_up_num(trexio_file, &n_up);
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading number of spin-up electrons: n%s\n",
-        trexio_string_of_error(rc));
+                trexio_string_of_error(rc));
         exit(1);
     }
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
     rc = trexio_read_mo_num(trexio_file, &mo_num);
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading number of molecular orbitals: n%s\n",
-        trexio_string_of_error(rc));
+                trexio_string_of_error(rc));
         exit(1);
     }
 
@@ -80,6 +80,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Read in the one-electron integrals
+
     int64_t elements = mo_num*mo_num; //! Variable for the number of elements to store in data array
     // Allocate data array
     double* data = malloc(elements*sizeof(double)); //! Request mo_num x mo_num doubles for storing the one-electron integrals
@@ -105,7 +106,7 @@ int main(int argc, char *argv[]) {
     // Check the return code to be sure reading was OK
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading number of non-zero two-electron integrals: n%s\n",
-        trexio_string_of_error(rc));
+                trexio_string_of_error(rc));
         exit(1);
     }
 
