@@ -4,6 +4,9 @@
 #include <string.h>
 #include <trexio.h>
 
+// Function headers
+#include "headers.h"
+
 // Function to get integral values considering 8-fold symmetry
 double get_integral(int i, int j, int k, int l, const int32_t* index, const double* value, int64_t n_integrals) {
     for (int64_t n = 0; n < n_integrals; n++) { // Try all possible permutations
@@ -79,6 +82,21 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
+    // Allocate array for orbital energies
+    double* mo_energy = malloc(mo_num * sizeof(double));
+    if (mo_energy == NULL) {
+        fprintf(stderr, "Failed to allocate memory for orbital energies\n");
+        exit(1);
+    }
+    // Read in the orbital energies
+    rc = trexio_read_mo_energy(trexio_file, mo_energy);
+    if (rc != TREXIO_SUCCESS) {
+        fprintf(stderr, "Error reading orbital energies: %s\n", 
+                trexio_string_of_error(rc));
+        free(mo_energy);
+        exit(1);
+    }
+
     // Read in the one-electron integrals
     int64_t elements = mo_num*mo_num; //! Variable for the number of elements to store in data array
     // Allocate data array
@@ -92,7 +110,8 @@ int main(int argc, char *argv[]) {
     // Check the return code to be sure reading was OK
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading one-electron integrals: n%s\n",
-        trexio_string_of_error(rc));
+                trexio_string_of_error(rc));
+        free(data);
         exit(1);
     }
 
@@ -128,74 +147,47 @@ int main(int argc, char *argv[]) {
     // Check the return code to be sure reading was OK
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading two-electron integrals: n%s\n",
-        trexio_string_of_error(rc));
+                trexio_string_of_error(rc));
+        free(index);
+        free(value);
         exit(1);
     }
 
     // Check if buffer size is equal to number of integrals
     if (buffer_size != n_integrals) {
         fprintf(stderr, "Not all two-electron integrals were read correctly\n");
+        free(mo_energy);
+        free(data);
+        free(index);
+        free(value);
         exit(1);
     }
 
-    //Calculate one-electron energy contribution
-    printf("\nCalculating the Hartree-Fock energy...\n");
-    // printf("\nOne-electron integrals:\n i    value\n");
-    double one_el_energy = 0;
-    for (int i=0; i < n_up; i++) { //! Iterate over the occupied orbitals
-        one_el_energy = one_el_energy + 2 * data[i*mo_num+i]; //! Get the value of the integral and add
-        // printf("%2d    %9.6lf\n", i+1, data[i*mo_num+i]);
+    // Close the TREXIO file
+    rc = trexio_close(trexio_file);
+    if (rc != TREXIO_SUCCESS) {
+        fprintf(stderr, "TREXIO Error: %s\n", trexio_string_of_error(rc));
+        exit(1);
     }
+    trexio_file = NULL;
+
+    printf("\nCalculating the Hartree-Fock energy...\n");
+    
+    //Calculate one-electron energy contribution
+    double one_el_energy = one_electron_energy(data, n_up, mo_num);
 
     // Calculate the two-electron energy contribution
-    // printf("\nTwo-electron integrals:\n       i  j  k  l     value\n");
-    double two_el_energy = 0; //! Variable to store the two-electron interaction energy
-    for (int n=0; n < n_integrals; n++) { //! Iterate over the stored integrals
-        //Get the indices
-        int i = index[4*n];
-        int j = index[4*n+1];
-        int k = index[4*n+2];
-        int l = index[4*n+3];
-        if (i < n_up && j < n_up) { //! Check if the first two indices belong to occupied orbitals
-            if (i == j && j == k && k == l) {
-                two_el_energy = two_el_energy + value[n]; //! if all indices are the same, only add once
-                // printf("2J-K: %2d %2d %2d %2d    %9.6lf\n", i+1, j+1, k+1, l+1, value[n]);
-            }
-            else if (k == i && l ==j) {
-                two_el_energy = two_el_energy + (2 * 2 * value[n]); //! Add x2 the Coulomb integral, *2 for permutational symmetry
-                // printf("J:    %2d %2d %2d %2d    %9.6lf\n", i+1, j+1, k+1, l+1, value[n]);
-            }
-            else if (i == j && k == l) {
-                two_el_energy = two_el_energy - (2 * value[n]); //! Substract the exchange integral, *2 for permutational symmetry
-                // printf("K:    %2d %2d %2d %2d    %9.6lf\n", i+1, j+1, k+1, l+1, value[n]);
-            }
-        }
-        else if (l >= n_up) {
-            break; //! Break the loop once there are only integrals with virtual orbitals in the list
-        }
-    }
-
+    double two_el_energy = two_electron_energy(index, value, n_up, n_integrals);
+    
     // Calculate the Hartree-Fock energy
-    double HF_energy = nuc_repul + one_el_energy + two_el_energy;
+    double HF_energy = hartree_fock_energy(nuc_repul, one_el_energy, two_el_energy);
+    
     printf("Done!\n");
 
-    // Calculate MP2 energy correction
-    double* mo_energy = malloc(mo_num * sizeof(double)); // First, read the orbital energies
-    if (mo_energy == NULL) {
-        fprintf(stderr, "Failed to allocate memory for orbital energies\n");
-        exit(1);
-    }
-    rc = trexio_read_mo_energy(trexio_file, mo_energy);
-    if (rc != TREXIO_SUCCESS) {
-        fprintf(stderr, "Error reading orbital energies: %s\n", 
-                trexio_string_of_error(rc));
-        free(mo_energy);
-        exit(1);
-    }
-
+    printf("\nCalculating the MP2 energy correction...\n");
+    
     // Calculate MP2 energy
     double MP2_energy = 0.0;
-    printf("\nCalculating the MP2 energy correction...\n");
     for (int i = 0; i < n_up; i++) {
         for (int j = 0; j < n_up; j++) {
             for (int a = n_up; a < mo_num; a++) {
@@ -212,12 +204,12 @@ int main(int argc, char *argv[]) {
 
     // Print a summary
     printf("\n################## Energy Summary ##################\n");
-    printf("\nNuclear repulsion energy:             %9.6lf\n", nuc_repul);
-    printf("One-electron energy:                  %9.6lf\n", one_el_energy);
+    printf("\nNuclear repulsion energy:            %9.6lf\n", nuc_repul);
+    printf("One-electron energy:                 %9.6lf\n", one_el_energy);
     printf("Two-electron energy:                  %9.6lf\n", two_el_energy);
-    printf("Hartree-Fock energy:                  %9.6lf\n", HF_energy);
-    printf("MP2 energy correction:                %9.6lf\n", MP2_energy);
-    printf("Total energy (HF + MP2):              %9.6lf\n", HF_energy + MP2_energy);
+    printf("Hartree-Fock energy:                 %9.6lf\n", HF_energy);
+    printf("MP2 energy correction:               %9.6lf\n", MP2_energy);
+    printf("Total energy (HF + MP2):             %9.6lf\n", HF_energy + MP2_energy);
     printf("\n################ System Information ################\n");
     printf("\nNumber of occupied orbitals:          %d\n", n_up);
     printf("Number of molecular orbitals:         %d\n", mo_num);
@@ -237,13 +229,6 @@ int main(int argc, char *argv[]) {
     free(data);
     data = NULL;
 
-    // Close the TREXIO file
-    rc = trexio_close(trexio_file);
-    if (rc != TREXIO_SUCCESS) {
-        fprintf(stderr, "TREXIO Error: %s\n", trexio_string_of_error(rc));
-        exit(1);
-    }
-    trexio_file = NULL;
 
     /*Print some indexes to get used to the order of the integrals
     for (int n=0; n < 200; n++) {

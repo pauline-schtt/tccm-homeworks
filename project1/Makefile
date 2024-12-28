@@ -9,12 +9,12 @@ SRC_DIR = src
 TARGET = HF_and_MP2
 
 # Source files
-SRCS = $(SRC_DIR)/HF_and_MP2.c
+SRCS = $(SRC_DIR)/HF_and_MP2.c $(SRC_DIR)/HF_functions.c
 
 # Rules
 all: $(TARGET)
 
-$(TARGET):
+$(TARGET): $(SRCS)
 	@echo "Building the project..."
 	$(CC) $(SRCS) -o $@ $(CFLAGS)
 	@echo "Done!"
