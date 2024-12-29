@@ -196,16 +196,10 @@ int main(int argc, char *argv[]) {
     mo_energy = NULL;
     free(value);
     value = NULL;
-    free(index); // Reset pointer? Either skip this add "const" in variable defintion
+    free(index);
     index = NULL;
     free(data);
     data = NULL;
-
-
-    /*Print some indexes to get used to the order of the integrals
-    for (int n=0; n < 200; n++) {
-        printf("%2d %2d %2d %2d\n", index[4*n], index[4*n+1], index[4*n+2], index[4*n+3]);
-    }*/
 
     return 0;
 }
