@@ -1,9 +1,7 @@
-// Imports
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <trexio.h>
-
 #include "headers.h" // Function headers
 
 int main(int argc, char *argv[]) {
@@ -176,16 +174,16 @@ int main(int argc, char *argv[]) {
 
     // Print a summary
     printf("\n################## Energy Summary ##################\n");
-    printf("\nNuclear repulsion energy:            %9.6lf\n", nuc_repul);
+    printf("\nNuclear repulsion energy:           %9.6lf\n", nuc_repul);
     printf("One-electron energy:                 %9.6lf\n", one_el_energy);
-    printf("Two-electron energy:                  %9.6lf\n", two_el_energy);
+    printf("Two-electron energy:                 %9.6lf\n", two_el_energy);
     printf("Hartree-Fock energy:                 %9.6lf\n", HF_energy);
     printf("MP2 energy correction:               %9.6lf\n", MP2_energy);
     printf("Total energy (HF + MP2):             %9.6lf\n", HF_energy + MP2_energy);
     printf("\n################ System Information ################\n");
-    printf("\nNumber of occupied orbitals:          %d\n", n_up);
-    printf("Number of molecular orbitals:         %d\n", mo_num);
-    printf("Number of two-electron integrals:     %ld\n", n_integrals);
+    printf("\nNumber of occupied orbitals:         %d\n", n_up);
+    printf("Number of molecular orbitals:        %d\n", mo_num);
+    printf("Number of two-electron integrals:    %ld\n", n_integrals);
 
     // Finalize the calculation
     printf("\nYour calculation is done.\n");
