@@ -26,7 +26,7 @@ Ensure you have the following installed on your system:
 
 ## Test
 
-To test whether the installation was succesful, you could calculate the Hartree-Fock and MP2 energies on the set of molecules provided in the `data` folder. The reference values are given in the `README.org` file.
+The program was tested on MacOS Sequoia 15.2 and Ubuntu ... . To test whether the installation was succesful, you could calculate the Hartree-Fock and MP2 energies on the set of molecules provided in the `data` folder. The reference values are given in the `README.org` file.
 
 ## Cleaning up
 

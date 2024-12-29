@@ -22,6 +22,10 @@ Ensure you have the following installed on your system:
     ./MD <path_to_the_input_file>
     ```
 
+## Test
+
+The program was tested on MacOS Sequoia 15.2 and Ubuntu ... .
+
 ## Cleaning up
 
 To clean up the compiled files, run:
