@@ -3,8 +3,6 @@
 #include <string.h>
 #include "headers.h"
 
-// To compile it please run 'gcc -o MD main.c functions.c -lm'
-// Down below I included some lines to check whether the code works
 int main(int argc, char *argv[]) {
     // Check if filename is provided
     if (argc != 2) {
@@ -38,17 +36,6 @@ int main(int argc, char *argv[]) {
         free(masses);
         return 1;
     }
-    
-    /*
-    // Calculate and print distances
-    double** distances = calculate_distances(coords, n_atoms);
-    printf("\nDistances between pairs of atoms:\n");
-    for (int i = 0; i < n_atoms; i++) {
-        for (int j = i + 1; j < n_atoms; j++) {
-        printf("Atom %d - atom %d: %f\n", i, j, distances[i][j]);
-        }
-    }
-    */
 
     // Allocate array for velocities and initialize them to zero
     double** velocities = allocate_2d_array(n_atoms, 3);
@@ -99,21 +86,7 @@ int main(int argc, char *argv[]) {
     }
     
     // Close output file
-    fclose(trajectory_file);
-    
-    /*
-    // Calculate and print accelerations
-    calculate_accelerations(coords, masses, n_atoms, epsilon, sigma, distances, accelerations);
-    printf("\nAccelerations for each atom:\n");
-    for (int i = 0; i < n_atoms; i++) {
-        printf("Atom %d: a_x=%e a_y=%e a_z=%e\n", 
-               i+1, accelerations[i][0], accelerations[i][1], accelerations[i][2]);
-    }
-
-    // Calculate and print total potential energy
-    double total_potential = calculate_potential_energy(distances, n_atoms, epsilon, sigma);
-    printf("\nTotal potential energy: %e\n", total_potential);
-    */    
+    fclose(trajectory_file);  
 
     // Free all allocated memory
     free_2d_array(coords, n_atoms);
