@@ -96,6 +96,25 @@ FILE* open_output(const char* filename) {
     return file;
 }
 
+// Function for printing the output
+
+void print_output(FILE* trajectory_file, FILE* extended_file, FILE* acceleration_file, 
+                 int n_atoms, int step, double kinetic_energy, double potential_energy, double total_energy,
+                 double** coords, double** velocities, double** accelerations) {
+    // Print comment line with number of atoms, step and energies
+    fprintf(trajectory_file, "\n%d\n#Step %d: %10.6e %10.6e %10.6e\n",
+            n_atoms, step, kinetic_energy, potential_energy, total_energy);
+    // Print coordinates, velocities and accelerations
+    for (int i = 0; i < n_atoms; i++) {
+        fprintf(trajectory_file, "Ar    %8.6e %8.6e %8.6e\n",
+                coords[i][0], coords[i][1], coords[i][2]);
+        fprintf(extended_file, "Ar     %8.6e %8.6e %8.6e     %8.6e %8.6e %8.6e\n",
+                coords[i][0], coords[i][1], coords[i][2], velocities[i][0], velocities[i][1], velocities[i][2]);
+        fprintf(acceleration_file, "Ar    %8.6e %8.6e %8.6e\n",
+                accelerations[i][0], accelerations[i][1], accelerations[i][2]);
+    }
+}
+
 // Function to calculate internuclear distances
 void calculate_distances(double** coords, double** distances, int n_atoms) {
     
@@ -161,6 +180,14 @@ double calculate_kinetic_energy(double** velocities,
 // Function to calculate total energy
 double calculate_total_energy(double kinetic_energy, double potential_energy) {
     return kinetic_energy + potential_energy;
+}
+
+// Function to check energy conservation
+void check_energy(double previous_energy, double total_energy, int step) {
+    double difference = abs(total_energy - previous_energy);
+    if (difference > 0.10 * abs(previous_energy)) {
+        printf("WARNING: The total energy is varying by more than 10 %% in step %5d.\n", step);
+    }
 }
 
 // Helper function for acceleration calculation

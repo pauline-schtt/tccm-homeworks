@@ -14,7 +14,7 @@ SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/functions.c
 # Rules
 all: $(TARGET)
 
-$(TARGET): $(SRCS)
+$(TARGET): $(SRCS) $(SRC_DIR)/headers.h
 	@echo "Building the project..."
 	$(CC) $(SRCS) -o $@ $(CFLAGS)
 	@echo "Done!"

@@ -14,7 +14,6 @@ int main(int argc, char *argv[]) {
     
     // Read number of atoms
     int n_atoms = read_natoms(filename);
-    //printf("Number of atoms: %d\n", n_atoms);
 
     // Allocate arrays
     double** coords = allocate_2d_array(n_atoms, 3);
@@ -52,9 +51,13 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // Open file for writing the trajectory
+    // Open files for writing the output
     const char* trajectory_name = "trajectory.xyz";
-    FILE* trajectory_file = open_output(trajectory_name);  
+    FILE* trajectory_file = open_output(trajectory_name); 
+    const char* extended_name = "trajectory_velocity.xyz";
+    FILE* extended_file = open_output(extended_name); 
+    const char* acceleration_name = "acceleration";
+    FILE* acceleration_file = open_output(acceleration_name);
 
     // Run 1000 steps of MD simulation
     int n_steps = 1000; //number of steps
@@ -63,6 +66,7 @@ int main(int argc, char *argv[]) {
     double kinetic_energy;
     double potential_energy;
     double total_energy;
+    double previous_energy;
 
     for (int i =0; i < n_steps; i++){
 
@@ -72,21 +76,24 @@ int main(int argc, char *argv[]) {
         calculate_accelerations(coords, masses, n_atoms, epsilon, sigma, distances, accelerations);
         update_velocities(velocities, accelerations, dt, n_atoms); // Second velocity update with new accelerations
         
-        // Calculate and print energies
+        // Calculate energies
         kinetic_energy = calculate_kinetic_energy(velocities, masses, n_atoms);
         potential_energy = calculate_potential_energy(distances, n_atoms, epsilon, sigma);
+        previous_energy = total_energy;
         total_energy = calculate_total_energy(kinetic_energy, potential_energy);
-        fprintf(trajectory_file, "\n%d\n#Step %d: %10.6e %10.6e %10.6e\n", 
-                n_atoms, i, kinetic_energy, potential_energy, total_energy);
-        // Print coordinates
-        for (int i = 0; i < n_atoms; i++) {
-            fprintf(trajectory_file, "Ar %8.6e %8.6e %8.6e\n", 
-                    coords[i][0], coords[i][1], coords[i][2]); 
-        }
+        // Check if the energy is conserved or varies by more than 5 %
+        check_energy(previous_energy, total_energy, i);
+
+        // Print output
+        print_output(trajectory_file, extended_file, acceleration_file, 
+                     n_atoms, i, kinetic_energy, potential_energy, total_energy,
+                     coords, velocities, accelerations);       
     }
     
-    // Close output file
+    // Close output files
     fclose(trajectory_file);  
+    fclose(extended_file);
+    fclose(acceleration_file);
 
     // Free all allocated memory
     free_2d_array(coords, n_atoms);
