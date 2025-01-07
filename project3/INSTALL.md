@@ -1,8 +1,8 @@
 ## Required software
 
 Ensure you have the following installed on your system:
-- `gcc` (version 14.2.0 and ... were tested)
-- `make` (version 3.81 and ... were tested)
+- `gcc` (version 14.2.0 and 13.3.0 were tested)
+- `make` (version 3.81 and 4.3 were tested)
 
 ## Installation steps
 
@@ -24,7 +24,7 @@ Ensure you have the following installed on your system:
 
 ## Test
 
-The program was tested on MacOS Sequoia 15.2 and Ubuntu ... .
+The program was tested on MacOS Sequoia 15.2 and Ubuntu 24.04.
 
 ## Cleaning up
 

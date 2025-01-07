@@ -1,8 +1,8 @@
 ## Required software
 
 Ensure you have the following installed on your system:
-- `gcc` (version 14.2.0 and ... were tested)
-- `make` (version 3.81 and ... were tested)
+- `gcc` (version 14.2.0 and 13.3.0 were tested)
+- `make` (version 3.81 and 4.3 were tested)
 - `hdf5`
 - `trexio` (version 2.5.0 was tested)
 
@@ -26,7 +26,7 @@ Ensure you have the following installed on your system:
 
 ## Test
 
-The program was tested on MacOS Sequoia 15.2 and Ubuntu ... . To test whether the installation was succesful, you could calculate the Hartree-Fock and MP2 energies on the set of molecules provided in the `data` folder. The reference values are given in the `README.org` file.
+The program was tested on MacOS Sequoia 15.2 and Ubuntu 24.04. To test whether the installation was succesful, you could calculate the Hartree-Fock and MP2 energies on the set of molecules provided in the `data` folder. The reference values are given in the `README.org` file. The expected output for the set of test molecules is provided in the `test` folder.
 
 ## Cleaning up
 
