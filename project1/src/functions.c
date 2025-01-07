@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 
 //
 // Functions associated with calculating the Hartree-Fock energy
@@ -23,7 +24,7 @@ double two_electron_energy(int32_t* index, double* value, int32_t n_up, int64_t 
     // printf("\nTwo-electron integrals:\n       i  j  k  l     value\n");
     double two_el_energy = 0; //! Variable to store the two-electron interaction energy
     for (int n=0; n < n_integrals; n++) { //! Iterate over the stored integrals
-        //Get the indices
+        // Get the indices
         int i = index[4*n];
         int j = index[4*n+1];
         int k = index[4*n+2];
@@ -92,4 +93,49 @@ double MP2_energy_correction(int32_t* index, double* value, double* mo_energy, i
         }
     }
     return MP2_energy;
+}
+
+double get_integral_2(int i, int j, int k, int l, const int32_t* index, const double* value, int64_t n_integrals) {
+    for (int64_t n = 0; n < n_integrals; n++) { // Try both possible permutations       
+        if ((index[4*n] == i && index[4*n+1] == j && index[4*n+2] == k && index[4*n+3] == l) ||
+            (index[4*n] == j && index[4*n+1] == i && index[4*n+2] == l && index[4*n+3] == k)) {
+            return value[n];
+        }
+    }
+    return 0.0;
+}
+
+// Alternative function for calculating the MP2 energy
+
+double MP2_alter(int32_t* index, double* value, double* mo_energy, int32_t n_up, int64_t n_integrals) { 
+    double MP2_alternative = 0; //! Variable to store the alternative MP2 energy
+    double ijab = 0;
+    double ijba = 0;
+    double denominator = 0;
+    double symmetry = 0;
+    for (int n=0; n < n_integrals; n++) { //! Iterate over the stored integrals
+        // Get the indices
+        int i = index[4*n];
+        int j = index[4*n+1];
+        int a = index[4*n+2];
+        int b = index[4*n+3];
+        // Use <ij|ab> = <ab|ij> 
+        // Check if the first two indices belong to virtual orbitals and the last two to occupied
+        if (i >= n_up && j >= n_up && a < n_up && b < n_up) { 
+            ijab = value[n];
+            //printf("ijab: %2d %2d %2d %2d    %9.6lf\n", i+1, j+1, a+1, b+1, ijab);
+            denominator = mo_energy[a] + mo_energy[b] - mo_energy[i] - mo_energy[j];
+            ijba = get_integral_2(i, j, b, a, index, value, n_integrals);      
+            // Account for permutational symmetry
+	    if (i == j && a == b) {
+                symmetry = 1.0;
+            }
+            else {
+                symmetry = 2.0;
+            }
+            // Add integrals to MP2 correction
+            MP2_alternative += symmetry * ((ijab * (2.0 * ijab - ijba))/denominator);
+        }  
+    }
+    return MP2_alternative;
 }

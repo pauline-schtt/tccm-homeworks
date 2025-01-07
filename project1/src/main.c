@@ -179,8 +179,9 @@ int main(int argc, char *argv[]) {
     printf("\nCalculating the MP2 energy correction...\n");
     
     // Calculate MP2 energy
-    double MP2_energy = MP2_energy_correction(index, value, mo_energy, n_up, mo_num, n_integrals); //! Variable for the MP2 energy
-    
+    //double MP2_energy = MP2_energy_correction(index, value, mo_energy, n_up, mo_num, n_integrals); //! Variable for the MP2 energy
+    double MP2_energy = MP2_alter(index, value, mo_energy, n_up, n_integrals);
+ 
     printf("Done!\n"); 
 
     // Print a summary
