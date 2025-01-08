@@ -9,7 +9,7 @@ Ensure you have the following installed on your system:
 1. First, clone the repository:
     ```sh
     git clone https://github.com/pauline-schtt/tccm-homeworks/tree/master/project3
-    cd project1
+    cd project3
     ```
 
 2. Compile the program using `make`:
@@ -24,7 +24,7 @@ Ensure you have the following installed on your system:
 
 ## Test
 
-The program was tested on MacOS Sequoia 15.2 and Ubuntu 24.04.
+The program was tested on MacOS Sequoia 15.2 and Ubuntu 24.04. You could find the examples of the input file as well as the obtained trajectory from it in `data` folder. Please, pay close attention to the obtained values of energies during the simulation.
 
 ## Cleaning up
 
