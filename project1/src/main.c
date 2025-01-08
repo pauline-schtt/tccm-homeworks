@@ -7,9 +7,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <trexio.h>
+#include <time.h>
 #include "headers.h" // Function headers
 
 int main(int argc, char *argv[]) {
+    // Start timing the entire program
+    clock_t start_total = clock();
+    clock_t start_hf, end_hf, start_mp2, end_mp2;
+
     char* filename; //!< Variable for the name of the HDF5 file
 
     // Check if a HDF5 file was specified as argument
@@ -170,6 +175,8 @@ int main(int argc, char *argv[]) {
 
     printf("\nCalculating the Hartree-Fock energy...\n");
     
+    start_hf = clock(); // Start timing the Hartree-Fock energy calculation
+
     //Calculate one-electron energy contribution
     double one_el_energy = one_electron_energy(data, n_up, mo_num); //!< Variable for the one-electron energy contribution
 
@@ -178,20 +185,34 @@ int main(int argc, char *argv[]) {
     
     // Calculate the Hartree-Fock energy
     double HF_energy = hartree_fock_energy(nuc_repul, one_el_energy, two_el_energy); //!< Variable for the overall Hartree-Fock energy
+
+    end_hf = clock(); // End timing the Hartree-Fock energy calculation
     
     printf("Done!\n");
 
     printf("\nCalculating the MP2 energy correction...\n");
     
+    start_mp2 = clock(); // Start timing the MP2 energy correction calculation
+
     // Calculate MP2 energy
     //double MP2_energy = MP2_energy_correction(index, value, mo_energy, n_up, mo_num, n_integrals); //!< Variable for the MP2 energy
     double MP2_energy = MP2_alter(index, value, mo_energy, n_up, n_integrals);
  
+    end_mp2 = clock(); // End timing the MP2 energy correction calculation
+
     printf("Done!\n"); 
+
+    clock_t end_total = clock(); // End timing the entire program
+
+    // Calculate times in seconds
+    double time_total = ((double) (end_total - start_total)) / CLOCKS_PER_SEC;
+    double time_hf = ((double) (end_hf - start_hf)) / CLOCKS_PER_SEC;
+    double time_mp2 = ((double) (end_mp2 - start_mp2)) / CLOCKS_PER_SEC;
+    double time_other = time_total - (time_hf + time_mp2);
 
     // Print a summary
     printf("\n################## Energy Summary ##################\n");
-    printf("\nNuclear repulsion energy:           %9.6lf\n", nuc_repul);
+    printf("\nNuclear repulsion energy:            %9.6lf\n", nuc_repul);
     printf("One-electron energy:                 %9.6lf\n", one_el_energy);
     printf("Two-electron energy:                 %9.6lf\n", two_el_energy);
     printf("Hartree-Fock energy:                 %9.6lf\n", HF_energy);
@@ -201,6 +222,11 @@ int main(int argc, char *argv[]) {
     printf("\nNumber of occupied orbitals:         %d\n", n_up);
     printf("Number of molecular orbitals:        %d\n", mo_num);
     printf("Number of two-electron integrals:    %ld\n", n_integrals);
+    printf("\n################# Timing Information ################\n");
+    printf("HF calculation time:                 %.6f seconds\n", time_hf);
+    printf("MP2 calculation time:                %.6f seconds\n", time_mp2);
+    printf("I/O and setup time:                  %.6f seconds\n", time_other);
+    printf("Total execution time:                %.6f seconds\n", time_total);
 
     // Finalize the calculation
     printf("\nYour calculation is done.\n");
