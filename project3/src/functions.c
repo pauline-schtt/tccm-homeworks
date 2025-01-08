@@ -3,7 +3,13 @@
 #include <math.h>
 #include "headers.h"
 
-// Function to allocate a 2D array
+/**
+ * @brief Allocates a 2D array of doubles
+ * @param rows Number of rows in the array
+ * @param cols Number of columns in the array
+ * @return Pointer to the allocated 2D array
+ * @throws Exits with code 1 if memory allocation fails
+ */
 double** allocate_2d_array(int rows, int cols) {
     double** array = (double**)malloc(rows * sizeof(double*));
     if (array == NULL) {
@@ -25,7 +31,11 @@ double** allocate_2d_array(int rows, int cols) {
     return array;
 }
 
-// Function to free a 2D array
+/**
+ * @brief Frees a 2D array from memory
+ * @param array Pointer to the 2D array to be freed
+ * @param rows Number of rows in the array
+ */
 void free_2d_array(double** array, int rows) {
     if (array == NULL) return;
     
@@ -35,7 +45,12 @@ void free_2d_array(double** array, int rows) {
     free(array);
 }
 
-// Function to read number of atoms from input file
+/**
+ * @brief Reads the number of atoms from an input file
+ * @param filename Name of the input file
+ * @return Number of atoms
+ * @throws Exits with code 1 if file cannot be opened
+ */
 int read_natoms(const char* filename) {
     // Open file
     FILE* file = fopen(filename, "r");
@@ -50,7 +65,14 @@ int read_natoms(const char* filename) {
     return n_atoms;
 }
 
-// Function to read coordinates and masses
+/**
+ * @brief Reads atomic coordinates and masses from an input file
+ * @param filename Name of the input file
+ * @param coords 2D array to store coordinates
+ * @param masses Array to store atomic masses
+ * @param n_atoms Number of atoms
+ * @throws Exits with code 1 if file cannot be opened
+ */
 void read_coords_and_masses(const char* filename,
                             double** coords,
                             double* masses,
@@ -74,7 +96,14 @@ void read_coords_and_masses(const char* filename,
     fclose(file);
 }
 
-// Function to validate atoms in the input file
+/**
+ * @brief Validates that all atoms in the system are argon
+ * @param masses Array of atomic masses
+ * @param epsilon Pointer to store the epsilon parameter
+ * @param sigma Pointer to store the sigma parameter
+ * @param n_atoms Number of atoms
+ * @return 1 if all atoms are valid, 0 otherwise
+ */
 int validate_atoms(double* masses, double* epsilon, double* sigma, int n_atoms) {
     for (int i = 0; i < n_atoms; i++) {
         if (masses[i] != ARGON_MASS) {
@@ -88,7 +117,12 @@ int validate_atoms(double* masses, double* epsilon, double* sigma, int n_atoms) 
     return 1;
 }
 
-// Function to open output file
+/**
+ * @brief Opens a file for writing output
+ * @param filename Name of the output file
+ * @return Pointer to the opened file
+ * @throws Exits with code 1 if file cannot be opened
+ */
 FILE* open_output(const char* filename) {
     FILE* file = fopen(filename, "w");
     if (file == NULL) {
@@ -98,8 +132,21 @@ FILE* open_output(const char* filename) {
     return file;
 }
 
-// Function for printing the output
-
+/**
+ * @brief Prints simulation output
+ * @param trajectory_file File pointer for trajectory output
+ * @param energy_file File pointer for energy output
+ * @param extended_file File pointer for extended information
+ * @param acceleration_file File pointer for acceleration data
+ * @param n_atoms Number of atoms
+ * @param step Current simulation step
+ * @param kinetic_energy Current kinetic energy
+ * @param potential_energy Current potential energy
+ * @param total_energy Current total energy
+ * @param coords Array of atomic coordinates
+ * @param velocities Array of atomic velocities
+ * @param accelerations Array of atomic accelerations
+ */
 void print_output(FILE* trajectory_file, FILE* energy_file, FILE* extended_file, FILE* acceleration_file, 
                  int n_atoms, int step, double kinetic_energy, double potential_energy, double total_energy,
                  double** coords, double** velocities, double** accelerations) {
@@ -123,7 +170,12 @@ void print_output(FILE* trajectory_file, FILE* energy_file, FILE* extended_file,
     }
 }
 
-// Function to calculate internuclear distances
+/**
+ * @brief Calculates distances between all pairs of atoms
+ * @param coords Array of atomic coordinates
+ * @param distances 2D array to store pairwise distances
+ * @param n_atoms Number of atoms
+ */
 void calculate_distances(double** coords, double** distances, int n_atoms) {
     
     for (int i = 0; i < n_atoms; i++) {
@@ -141,7 +193,13 @@ void calculate_distances(double** coords, double** distances, int n_atoms) {
     }
 }
 
-// Function to calculate the Lennard-Jones potential
+/**
+ * @brief Calculates the Lennard-Jones potential between two atoms
+ * @param r Distance between atoms
+ * @param epsilon Epsilon parameter for LJ potential
+ * @param sigma Sigma parameter for LJ potential
+ * @return Value of the Lennard-Jones potential
+ */
 static double lennard_jones_potential(double r,
                                       double epsilon,
                                       double sigma) {
@@ -151,7 +209,14 @@ static double lennard_jones_potential(double r,
     return 4.0 * epsilon * (sigma_r_12 - sigma_r_6);
 }
 
-// Function to calculate total potential energy
+/**
+ * @brief Calculates total potential energy of the system
+ * @param distances 2D array of pairwise distances
+ * @param n_atoms Number of atoms
+ * @param epsilon Epsilon parameter for LJ potential
+ * @param sigma Sigma parameter for LJ potential
+ * @return Total potential energy of the system
+ */
 double calculate_potential_energy(double** distances,
                                   int n_atoms,
                                   double epsilon,
@@ -169,7 +234,13 @@ double calculate_potential_energy(double** distances,
     return total_potential;
 }
 
-// Function to calculate kinetic energy
+/**
+ * @brief Calculates total kinetic energy of the system
+ * @param velocities Array of atomic velocities
+ * @param masses Array of atomic masses
+ * @param n_atoms Number of atoms
+ * @return Total kinetic energy of the system
+ */
 double calculate_kinetic_energy(double** velocities,
                                 double* masses,
                                 int n_atoms) {
@@ -185,12 +256,23 @@ double calculate_kinetic_energy(double** velocities,
     return total_kinetic;
 }
 
-// Function to calculate total energy
+/**
+ * @brief Calculates total energy of the system
+ * @param kinetic_energy Current kinetic energy
+ * @param potential_energy Current potential energy
+ * @return Total energy of the system
+ */
 double calculate_total_energy(double kinetic_energy, double potential_energy) {
     return kinetic_energy + potential_energy;
 }
 
-// Function to check energy conservation
+/**
+ * @brief Checks energy conservation between simulation steps
+ * @param previous_energy Energy from previous step
+ * @param total_energy Current total energy
+ * @param step Current simulation step
+ * @warning Prints warning if energy varies by more than 10%
+ */
 void check_energy(double previous_energy, double total_energy, int step) {
     double difference = abs(total_energy - previous_energy); //!< Variable used by check_energy() for the difference in total energy between subsequent steps
     if (difference > 0.10 * abs(previous_energy)) {
@@ -198,7 +280,13 @@ void check_energy(double previous_energy, double total_energy, int step) {
     }
 }
 
-// Helper function for acceleration calculation
+/**
+ * @brief Helper function for acceleration calculation
+ * @param r Distance between atoms
+ * @param epsilon Epsilon parameter for LJ potential
+ * @param sigma Sigma parameter for LJ potential
+ * @return U value
+ */
 static double calculate_U(double r,
                           double epsilon,
                           double sigma) {
@@ -208,7 +296,16 @@ static double calculate_U(double r,
     return 24.0 * (epsilon / r) * (sigma_r_6 - 2.0 * sigma_r_12); 
 }
 
-// Function to calculate acceleration vectors
+/**
+ * @brief Calculates acceleration vectors for all atoms
+ * @param coords Array of atomic coordinates
+ * @param masses Array of atomic masses
+ * @param n_atoms Number of atoms
+ * @param epsilon Epsilon parameter for LJ potential
+ * @param sigma Sigma parameter for LJ potential
+ * @param distances 2D array of pairwise distances
+ * @param accelerations Array to store calculated accelerations
+ */
 void calculate_accelerations(double** coords,
                              double* masses,
                              int n_atoms, 
@@ -238,7 +335,14 @@ void calculate_accelerations(double** coords,
     }
 }
 
-// Function to update positions
+/**
+ * @brief Updates atomic positions using Verlet algorithm
+ * @param coords Array of atomic coordinates
+ * @param velocities Array of atomic velocities
+ * @param accelerations Array of atomic accelerations
+ * @param dt Time step
+ * @param n_atoms Number of atoms
+ */
 void update_positions(double** coords,
                       double** velocities,
                       double** accelerations,
@@ -253,7 +357,13 @@ void update_positions(double** coords,
     }
 }
 
-// Function to update velocities
+/**
+ * @brief Updates atomic velocities using Verlet algorithm
+ * @param velocities Array of atomic velocities
+ * @param accelerations Array of atomic accelerations
+ * @param dt Time step
+ * @param n_atoms Number of atoms
+ */
 void update_velocities(double** velocities,
                        double** accelerations,
                        double dt,
@@ -265,6 +375,3 @@ void update_velocities(double** velocities,
         velocities[i][2] += 0.5 * accelerations[i][2] * dt;
     }
 }
-
-
-

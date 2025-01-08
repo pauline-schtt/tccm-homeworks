@@ -1,12 +1,13 @@
 #include <stdint.h>
 #include <stdio.h>
 
-//
-// Functions associated with calculating the Hartree-Fock energy
-//
-
-// Function to calculate one-electron energy contribution
-
+/**
+ * @brief Calculates the one-electron energy contribution to the Hartree-Fock energy
+ * @param data Array containing one-electron integrals
+ * @param n_up Number of occupied orbitals
+ * @param mo_num Total number of molecular orbitals
+ * @return One-electron energy contribution
+ */
 double one_electron_energy(double* data, int32_t n_up, int32_t mo_num){
     // printf("\nOne-electron integrals:\n i    value\n");
     double one_el_energy = 0; //!< Variable used by one_electron_energy() while calculating the one-electron energy
@@ -17,9 +18,14 @@ double one_electron_energy(double* data, int32_t n_up, int32_t mo_num){
     return one_el_energy;
 }
 
-
-// Function to calculate the two-electron energy contribution
-
+/**
+ * @brief Calculates the two-electron energy contribution to the Hartree-Fock energy
+ * @param index Array containing four-index combinations for two-electron integrals
+ * @param value Array containing values of two-electron integrals
+ * @param n_up Number of occupied orbitals
+ * @param n_integrals Total number of two-electron integrals
+ * @return Two-electron energy contribution
+ */
 double two_electron_energy(int32_t* index, double* value, int32_t n_up, int64_t n_integrals) {
     // printf("\nTwo-electron integrals:\n       i  j  k  l     value\n");
     double two_el_energy = 0; //!< Variable used by two_electron_energy() while calculating the two-electron interaction energy
@@ -50,15 +56,16 @@ double two_electron_energy(int32_t* index, double* value, int32_t n_up, int64_t 
     return two_el_energy;
 }
 
-// Function to calculate Hartree-Fock energy
-
+/**
+ * @brief Calculates the total Hartree-Fock energy
+ * @param nuc_repul Nuclear repulsion energy
+ * @param one_el_energy One-electron energy contribution
+ * @param two_el_energy Two-electron energy contribution
+ * @return Total Hartree-Fock energy
+ */
 double hartree_fock_energy(double nuc_repul, double one_el_energy, double two_el_energy) {
     return nuc_repul + one_el_energy + two_el_energy;
 }
-
-//
-// Functions for calculating the MP2 energy correction
-//
 
 // Function to get integral values considering 8-fold symmetry
 double get_integral(int i, int j, int k, int l, const int32_t* index, const double* value, int64_t n_integrals) {
@@ -95,6 +102,17 @@ double MP2_energy_correction(int32_t* index, double* value, double* mo_energy, i
     return MP2_energy;
 }
 
+/**
+ * @brief Retrieves integral value
+ * @param i First index
+ * @param j Second index
+ * @param k Third index
+ * @param l Fourth index
+ * @param index Array containing four-index combinations
+ * @param value Array containing integral values
+ * @param n_integrals Total number of integrals
+ * @return Value of the requested integral or 0.0 if not found
+ */
 double get_integral_2(int i, int j, int k, int l, const int32_t* index, const double* value, int64_t n_integrals) {
     for (int64_t n = 0; n < n_integrals; n++) { // Try both possible permutations       
         if ((index[4*n] == i && index[4*n+1] == j && index[4*n+2] == k && index[4*n+3] == l) ||
@@ -105,8 +123,15 @@ double get_integral_2(int i, int j, int k, int l, const int32_t* index, const do
     return 0.0;
 }
 
-// Alternative function for calculating the MP2 energy
-
+/**
+ * @brief MP2 energy correction calculation
+ * @param index Array containing four-index combinations
+ * @param value Array containing integral values
+ * @param mo_energy Array of molecular orbital energies
+ * @param n_up Number of occupied orbitals
+ * @param n_integrals Total number of integrals
+ * @return MP2 energy correction
+ */
 double MP2_alter(int32_t* index, double* value, double* mo_energy, int32_t n_up, int64_t n_integrals) { 
     double MP2_alternative = 0; //!< Variable used by MP2_alter() to store the alternative MP2 energy
     double ijab = 0; //!< Variable used by MP2_alter() to store the integral with indices ijab
