@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "headers.h"
 
 int main(int argc, char *argv[]) {
@@ -71,6 +72,12 @@ int main(int argc, char *argv[]) {
     double total_energy; //!< Variable for storing the total energy
     double previous_energy; //!< Variable for storing the total energy of the previous step
 
+    // Initialize timing variables
+    clock_t start_md, end_md;
+    double total_md_time;
+
+    start_md = clock(); // Start timing the MD simulation
+
     for (int i =0; i < n_steps; i++){
 
         // Update positions, velocities and accelerations
@@ -94,6 +101,17 @@ int main(int argc, char *argv[]) {
                      coords, velocities, accelerations);       
     }
     
+    end_md = clock(); // End timing the MD simulation
+
+    // Timing statistics
+    total_md_time = ((double) (end_md - start_md)) / CLOCKS_PER_SEC;
+    double average_step_time = total_md_time / n_steps;
+
+    printf("\n################# Timing Information ################\n");
+    printf("Total number of steps:          %d\n", n_steps);
+    printf("Total MD simulation time:       %.6f seconds\n", total_md_time);
+    printf("Average time per step:          %.6f seconds\n", average_step_time);
+
     // Close output files
     fclose(trajectory_file);  
     fclose(extended_file);
