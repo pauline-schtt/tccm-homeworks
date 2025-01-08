@@ -314,6 +314,12 @@ void calculate_accelerations(double** coords,
                              double** distances, 
                              double** accelerations) {
 
+    for (int i = 0; i < n_atoms; i++) { // Initialize accelerations to zero
+        accelerations[i][0] = 0.0;
+        accelerations[i][1] = 0.0;
+        accelerations[i][2] = 0.0;
+    }
+
     calculate_distances(coords, distances, n_atoms); // Update the 2D array of distances    
 
     for (int i = 0; i < n_atoms; i++) {
