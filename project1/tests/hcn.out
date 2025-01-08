@@ -1,0 +1,33 @@
+ ___  ___  ________      _____ ______   ________    _______     
+|\  \|\  \|\  _____\    |\   _ \  _   \|\   __  \  /  ___  \    
+\ \  \\\  \ \  \__/     \ \  \\\__\ \  \ \  \|\  \/__/|_/  /|   
+ \ \   __  \ \   __\     \ \  \\|__| \  \ \   ____\__|//  / /   
+  \ \  \ \  \ \  \_|      \ \  \    \ \  \ \  \___|   /  /_/__  
+   \ \__\ \__\ \__\        \ \__\    \ \__\ \__\     |\________\
+    \|__|\|__|\|__|         \|__|     \|__|\|__|      \|_______|
+
+Welcome to the Hartree-Fock and MP2 energy calculation program.
+
+Calculating the Hartree-Fock energy...
+Done!
+
+Calculating the MP2 energy correction...
+Done!
+
+################## Energy Summary ##################
+
+Nuclear repulsion energy:           23.878820
+One-electron energy:                 -172.509361
+Two-electron energy:                 55.747594
+Hartree-Fock energy:                 -92.882947
+MP2 energy correction:               -0.289275
+Total energy (HF + MP2):             -93.172222
+
+################ System Information ################
+
+Number of occupied orbitals:         7
+Number of molecular orbitals:        33
+Number of two-electron integrals:    157641
+
+Your calculation is done.
+Thank you for using the program!

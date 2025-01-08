@@ -221,7 +221,7 @@ double calculate_potential_energy(double** distances,
                                   int n_atoms,
                                   double epsilon,
                                   double sigma) {
-    double total_potential = 0.0; //!< Varibale used by calculate_potential_energy() for updating the potential energy
+    double total_potential = 0.0; //!< Variable used by calculate_potential_energy() for updating the potential energy
     
     // Sum over all unique pairs of i and j where j > i
     for (int i = 0; i < n_atoms; i++) {
