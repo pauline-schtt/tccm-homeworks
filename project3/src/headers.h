@@ -16,7 +16,7 @@ void calculate_accelerations(double** coords, double* masses, int n_atoms, doubl
 void update_positions(double** coords, double** velocities, double** accelerations, double dt, int n_atoms);
 void update_velocities(double** velocities, double** accelerations, double dt, int n_atoms);
 FILE* open_output(const char* filename);
-void print_output(FILE* trajectory_file, FILE* extended_file, FILE* acceleration_file, int n_atoms, int step, double kinetic_energy, double potential_energy, double total_energy, double** coords, double** velocities, double** accelerations); 
+void print_output(FILE* trajectory_file, FILE* energy_file, FILE* extended_file, FILE* acceleration_file, int n_atoms, int step, double kinetic_energy, double potential_energy, double total_energy, double** coords, double** velocities, double** accelerations); 
 #endif
 
 // Constants
