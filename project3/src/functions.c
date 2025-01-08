@@ -152,20 +152,20 @@ void print_output(FILE* trajectory_file, FILE* energy_file, FILE* extended_file,
                  double** coords, double** velocities, double** accelerations) {
     
     // Print comment line with number of atoms, step and energies
-    fprintf(trajectory_file, "\n%d\n#Step %d: %10.6e %10.6e %10.6e\n",
+    fprintf(trajectory_file, "%d\nStep %d: E(kin) = %10.8f, E(pot) = %10.8f, E(tot) = %10.8f\n",
             n_atoms, step, kinetic_energy, potential_energy, total_energy);
     
     // Print energies to separate file
-    fprintf(energy_file, "%10.6e %10.6e %10.6e\n",
+    fprintf(energy_file, "%10.8f %10.8f %10.8f\n",
             kinetic_energy, potential_energy, total_energy);    
 
     // Print coordinates, velocities and accelerations
     for (int i = 0; i < n_atoms; i++) {
-        fprintf(trajectory_file, "Ar    %8.6e %8.6e %8.6e\n",
+        fprintf(trajectory_file, "Ar    %10.6f %10.6f %10.6f\n",
                 coords[i][0], coords[i][1], coords[i][2]);
-        fprintf(extended_file, "Ar     %8.6e %8.6e %8.6e     %8.6e %8.6e %8.6e\n",
+        fprintf(extended_file, "Ar     %10.6f %10.6f %10.6f     %10.6f %10.6f %10.6f\n",
                 coords[i][0], coords[i][1], coords[i][2], velocities[i][0], velocities[i][1], velocities[i][2]);
-        fprintf(acceleration_file, "Ar    %8.6e %8.6e %8.6e\n",
+        fprintf(acceleration_file, "Ar    %10.6f %10.6f %10.6f\n",
                 accelerations[i][0], accelerations[i][1], accelerations[i][2]);
     }
 }
