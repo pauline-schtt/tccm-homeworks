@@ -15,12 +15,7 @@ int main(int argc, char *argv[]) {
     clock_t start_total = clock();
     clock_t start_hf, end_hf, start_mp2, end_mp2;
 
-    /**
-     * @var char* filename
-     * @brief Name of the HDF5 file
-     * @details This variable stores the path to the HDF5 file provided as input.
-     */
-    char* filename;
+    char* filename; //! Name of the HDF5 file
 
     // Check if a HDF5 file was specified as argument
     if (argc != 2) {
@@ -43,31 +38,15 @@ int main(int argc, char *argv[]) {
     printf("\nWelcome to the Hartree-Fock and MP2 energy calculation program.\n");
 
     // Open TREXIO file for reading the data
-    /**
-     * @var trexio_exit_code rc
-     * @brief TREXIO output code
-     * @details This variable is used to store the output code returned by TREXIO operations.
-     */
-    trexio_exit_code rc;
-
-    /**
-     * @var trexio_t* trexio_file
-     * @brief TREXIO file handle
-     * @details This variable represents the handle for the TREXIO file.
-     */
-    trexio_t* trexio_file = trexio_open(filename, 'r', TREXIO_AUTO, &rc);
+    trexio_exit_code rc; //! TREXIO output
+    trexio_t* trexio_file = trexio_open(filename, 'r', TREXIO_AUTO, &rc); //! TREXIO file handler
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error: %s\n", trexio_string_of_error(rc));
         exit(1);
     }
 
     // Read the nuclear repulsion energy
-    /**
-     * @var double nuc_repul
-     * @brief Nuclear repulsion energy
-     * @details This variable stores the nuclear repulsion energy read from the TREXIO file.
-     */
-    double nuc_repul;
+    double nuc_repul; //! Nuclear repulsion energy
     rc = trexio_read_nucleus_repulsion(trexio_file, &nuc_repul);
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading nuclear repulsion energy:\n%s\n",
@@ -76,12 +55,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Obtain the number of occupied orbitals
-    /**
-     * @var int32_t n_up
-     * @brief Number of spin-up electrons
-     * @details This variable stores the number of spin-up electrons read from the TREXIO file.
-     */
-    int32_t n_up;
+    int32_t n_up; //! Number of spin-up electrons
     rc = trexio_read_electron_up_num(trexio_file, &n_up);
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading number of spin-up electrons: n%s\n",
@@ -90,12 +64,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Obtain the number of molecular orbitals
-    /**
-     * @var int32_t mo_num
-     * @brief Number of molecular orbitals
-     * @details This variable stores the number of molecular orbitals read from the TREXIO file.
-     */
-    int32_t mo_num;
+    int32_t mo_num; //! Number of molecular orbitals
     rc = trexio_read_mo_num(trexio_file, &mo_num);
     if (rc != TREXIO_SUCCESS) {
         fprintf(stderr, "TREXIO Error reading number of molecular orbitals: n%s\n",
@@ -104,12 +73,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Allocate array for orbital energies
-    /**
-     * @var double* mo_energy
-     * @brief Array of orbital energies
-     * @details This array stores the orbital energies read from the TREXIO file.
-     */
-    double* mo_energy = malloc(mo_num * sizeof(double));
+    double* mo_energy = malloc(mo_num * sizeof(double)); //! Array of molecular orbital energies
     if (mo_energy == NULL) {
         fprintf(stderr, "Failed to allocate memory for orbital energies\n");
         exit(1);
@@ -125,19 +89,9 @@ int main(int argc, char *argv[]) {
 
     // Read in the one-electron integrals
 
-    /**
-     * @var int64_t elements
-     * @brief Number of elements in the data array
-     * @details This variable represents the total number of elements to store in the data array.
-     */
-    int64_t elements = mo_num * mo_num;
+    int64_t elements = mo_num * mo_num; //! Number of elements in the data array
 
-    /**
-     * @var double* data
-     * @brief Array for one-electron integrals
-     * @details This array stores the one-electron integrals calculated in the Hartree-Fock method.
-     */
-    double* data = malloc(elements * sizeof(double));
+    double* data = malloc(elements * sizeof(double)); //! Array of one-electron integrals
     if (data == NULL) {
         fprintf(stderr, "Allocation of data array for one-electron integrals failed\n");
         free(mo_energy);
@@ -157,12 +111,7 @@ int main(int argc, char *argv[]) {
     // Read in the two-electron integrals
 
     // Get number of non-zero integrals
-    /**
-     * @var int64_t n_integrals
-     * @brief Number of non-zero two-electron integrals
-     * @details This variable stores the total count of non-zero two-electron integrals read from the TREXIO file.
-     */
-    int64_t n_integrals;
+    int64_t n_integrals; //! Number of non-zero two-electron integrals
     rc = trexio_read_mo_2e_int_eri_size(trexio_file, &n_integrals);
     // Check the return code to be sure reading was OK
     if (rc != TREXIO_SUCCESS) {
@@ -174,12 +123,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Allocate memory for storing the indices
-    /**
-     * @var int32_t* index
-     * @brief Array for two-electron integral indices
-     * @details This array stores the indices of the two-electron integrals.
-     */
-    int32_t* index = malloc(4 * n_integrals * sizeof(int32_t));
+    int32_t* index = malloc(4 * n_integrals * sizeof(int32_t)); //! Array of indices of the two-electron integrals
     if (index == NULL) {
         fprintf(stderr, "Allocation of index array for two-electron integrals failed\n");
         free(mo_energy);
@@ -188,12 +132,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Allocate memory for storing the values of the integrals
-    /**
-     * @var double* value
-     * @brief Array for two-electron integral values
-     * @details This array stores the values of the two-electron integrals.
-     */
-    double* value = malloc(n_integrals * sizeof(double));
+    double* value = malloc(n_integrals * sizeof(double)); //! Array of values of the two-electron integrals
     if (value == NULL) {
         fprintf(stderr, "Allocation of value array for two-electron integrals failed\n");
         free(mo_energy);
@@ -203,12 +142,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Read in the integrals
-    /**
-     * @var int64_t buffer_size
-     * @brief Buffer size for two-electron integrals
-     * @details This variable is used as a buffer size for reading the two-electron integrals, initially set to n_integrals.
-     */
-    int64_t buffer_size = n_integrals;
+    int64_t buffer_size = n_integrals; //! Buffer size for reading, initially equal to number of two-electron integrals
     rc = trexio_read_mo_2e_int_eri(trexio_file, 0, &buffer_size, index, value);
     // Check the return code to be sure reading was OK
     if (rc != TREXIO_SUCCESS) {
@@ -244,28 +178,13 @@ int main(int argc, char *argv[]) {
     start_hf = clock(); // Start timing the Hartree-Fock energy calculation
 
     //Calculate one-electron energy contribution
-    /**
-     * @var double one_el_energy
-     * @brief One-electron energy contribution
-     * @details This variable stores the one-electron energy contribution to the Hartree-Fock energy.
-     */
-    double one_el_energy = one_electron_energy(data, n_up, mo_num);
+    double one_el_energy = one_electron_energy(data, n_up, mo_num); //! One-electron energy contribution
 
     // Calculate the two-electron energy contribution
-    /**
-     * @var double two_el_energy
-     * @brief Two-electron energy contribution
-     * @details This variable stores the two-electron energy contribution to the Hartree-Fock energy.
-     */
-    double two_el_energy = two_electron_energy(index, value, n_up, n_integrals);
+    double two_el_energy = two_electron_energy(index, value, n_up, n_integrals); //! Two-electron energy contribution
     
     // Calculate the Hartree-Fock energy
-    /**
-     * @var double HF_energy
-     * @brief Overall Hartree-Fock energy
-     * @details This variable stores the overall Hartree-Fock energy, including nuclear, one-electron, and two-electron contributions.
-     */
-    double HF_energy = hartree_fock_energy(nuc_repul, one_el_energy, two_el_energy);
+    double HF_energy = hartree_fock_energy(nuc_repul, one_el_energy, two_el_energy); //! Hartree-Fock energy
 
     end_hf = clock(); // End timing the Hartree-Fock energy calculation
     
@@ -276,12 +195,7 @@ int main(int argc, char *argv[]) {
     start_mp2 = clock(); // Start timing the MP2 energy correction calculation
 
     // Calculate MP2 energy
-    /**
-     * @var double MP2_energy
-     * @brief MP2 energy correction
-     * @details This variable stores the MP2 energy correction calculated during the post-Hartree-Fock method.
-     */
-    double MP2_energy = MP2_energy_correction(index, value, mo_energy, n_up, n_integrals);
+    double MP2_energy = MP2_energy_correction(index, value, mo_energy, n_up, n_integrals); //! MP2 energy
  
     end_mp2 = clock(); // End timing the MP2 energy correction calculation
 

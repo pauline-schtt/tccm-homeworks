@@ -13,8 +13,6 @@
  * @param data Array containing one-electron integrals
  * @param n_up Number of occupied orbitals
  * @param mo_num Total number of molecular orbitals
- * @var double one_el_energy
- * Variable used by one_electron_energy() while calculating the one-electron energy
  * @return One-electron energy contribution
  */
 double one_electron_energy(double* data, int32_t n_up, int32_t mo_num){
@@ -37,32 +35,12 @@ double one_electron_energy(double* data, int32_t n_up, int32_t mo_num){
  */
 double two_electron_energy(int32_t* index, double* value, int32_t n_up, int64_t n_integrals) {
     // printf("\nTwo-electron integrals:\n       i  j  k  l     value\n");
-    /**
-     * @var double two_el_energy
-     * @brief Variable used by two_electron_energy() while calculating the two-electron interaction energy
-     */
     double two_el_energy = 0;
     for (int n=0; n < n_integrals; n++) { //! Iterate over the stored integrals
         // Get the indices
-        /**
-         * @var int i
-         * @brief Variable used by two_electron_energy() for storing the index i
-         */
         int i = index[4*n]; 
-        /**
-         * @var int j
-         * @brief Variable used by two_electron_energy() for storing the index j
-         */
         int j = index[4*n+1];
-        /**
-         * @var int k
-         * @brief Variable used by two_electron_energy() for storing the index k
-         */
         int k = index[4*n+2]; 
-        /**
-         * @var int l
-         * @brief Variable used by two_electron_energy() for storing the index l
-         */
         int l = index[4*n+3];
         if (i < n_up && j < n_up) { // Check if the first two indices belong to occupied orbitals
             if (i == j && j == k && k == l) {
@@ -79,7 +57,7 @@ double two_electron_energy(int32_t* index, double* value, int32_t n_up, int64_t 
             }
         }
         else if (l >= n_up) {
-            break; //! Break the loop once there are only integrals with virtual orbitals in the list
+            break; // Break the loop once there are only integrals with virtual orbitals in the list
         }
     }
     return two_el_energy;
@@ -127,52 +105,16 @@ double get_integral(int i, int j, int k, int l, const int32_t* index, const doub
  * @return MP2 energy correction
  */
 double MP2_energy_correction(int32_t* index, double* value, double* mo_energy, int32_t n_up, int64_t n_integrals) { 
-    /**
-     * @var double MP2_energy
-     * @brief Variable used by MP2_energy_correction() while calculating the MP2 energy
-     */
     double MP2_energy = 0; 
-    /**
-     * @var double ijab
-     * @brief Variable used by MP2_alter() to store the integral with indices ijab
-     */
     double ijab = 0; 
-    /**
-     * @var double ijba
-     * @brief Variable used by MP2_alter() to store the integral with indices ijba
-     */
     double ijba = 0;
-    /**
-     * @var double denominator
-     * @brief Variable used by MP2_alter() to store the denominator
-     */
     double denominator = 0; 
-    /**
-     * @var double symmetry
-     * @brief Variable used by MP2_alter to account for permutational symmetry of the integrals
-     */
     double symmetry = 0; 
     for (int n=0; n < n_integrals; n++) { //Iterate over the stored integrals
         // Get the indices
-        /**
-         * @var int i
-         * @brief Variable used by MP2_alter() for storing index i
-         */
         int i = index[4*n]; 
-        /**
-         * @var int j
-         * @brief Variable used by MP2_alter() for storing index j
-         */
         int j = index[4*n+1]; 
-        /**
-         * @var int a
-         * @brief Variable used by MP2_alter() for storing index a
-         */
         int a = index[4*n+2];
-        /**
-         * @var int b
-         * @brief Variable used by MP2_alter() for storing index b
-         */
         int b = index[4*n+3];
         // Use <ij|ab> = <ab|ij> 
         // Check if the first two indices belong to virtual orbitals and the last two to occupied
@@ -181,7 +123,7 @@ double MP2_energy_correction(int32_t* index, double* value, double* mo_energy, i
             //printf("ijab: %2d %2d %2d %2d    %9.6lf\n", i+1, j+1, a+1, b+1, ijab);
             denominator = mo_energy[a] + mo_energy[b] - mo_energy[i] - mo_energy[j];
             ijba = get_integral(i, j, b, a, index, value, n_integrals);      
-            // Account for permutational symmetry
+            // Account for permutational symmetry of two-electron integrals
 	    if (i == j && a == b) {
                 symmetry = 1.0;
             }
