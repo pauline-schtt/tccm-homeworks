@@ -1,0 +1,50 @@
+\begin{theindex}
+
+  \item {functions.c}, \hyperpage{3}
+    \subitem {get\_integral}, \hyperpage{4}
+    \subitem {hartree\_fock\_energy}, \hyperpage{4}
+    \subitem {MP2\_energy\_correction}, \hyperpage{5}
+    \subitem {one\_electron\_energy}, \hyperpage{5}
+    \subitem {two\_electron\_energy}, \hyperpage{5}
+
+  \indexspace
+
+  \item {get\_integral}
+    \subitem {functions.c}, \hyperpage{4}
+    \subitem {headers.h}, \hyperpage{7}
+
+  \indexspace
+
+  \item {hartree\_fock\_energy}
+    \subitem {functions.c}, \hyperpage{4}
+    \subitem {headers.h}, \hyperpage{7}
+  \item {headers.h}, \hyperpage{6}
+    \subitem {get\_integral}, \hyperpage{7}
+    \subitem {hartree\_fock\_energy}, \hyperpage{7}
+    \subitem {MP2\_energy\_correction}, \hyperpage{8}
+    \subitem {one\_electron\_energy}, \hyperpage{8}
+    \subitem {two\_electron\_energy}, \hyperpage{8}
+
+  \indexspace
+
+  \item {main}
+    \subitem {main.c}, \hyperpage{10}
+  \item {main.c}, \hyperpage{9}
+    \subitem {main}, \hyperpage{10}
+  \item {MP2\_energy\_correction}
+    \subitem {functions.c}, \hyperpage{5}
+    \subitem {headers.h}, \hyperpage{8}
+
+  \indexspace
+
+  \item {one\_electron\_energy}
+    \subitem {functions.c}, \hyperpage{5}
+    \subitem {headers.h}, \hyperpage{8}
+
+  \indexspace
+
+  \item {two\_electron\_energy}
+    \subitem {functions.c}, \hyperpage{5}
+    \subitem {headers.h}, \hyperpage{8}
+
+\end{theindex}

@@ -1,0 +1,165 @@
+\doxysection{functions.\+c File Reference}
+\hypertarget{functions_8c}{}\label{functions_8c}\index{functions.c@{functions.c}}
+
+
+Contains the functions associated with the HF and MP2 energy calculation.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for functions.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{functions_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{functions_8c_a1ab0b66e631fc105a85a48c529e9520d}{one\+\_\+electron\+\_\+energy}} (double \texorpdfstring{$\ast$}{*}data, int32\+\_\+t n\+\_\+up, int32\+\_\+t mo\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Calculates the one-\/electron energy contribution to the Hartree-\/\+Fock energy. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{functions_8c_abd47080470fb66ea5d886e04ac92451a}{two\+\_\+electron\+\_\+energy}} (int32\+\_\+t \texorpdfstring{$\ast$}{*}index, double \texorpdfstring{$\ast$}{*}value, int32\+\_\+t n\+\_\+up, int64\+\_\+t n\+\_\+integrals)
+\begin{DoxyCompactList}\small\item\em Calculates the two-\/electron energy contribution to the Hartree-\/\+Fock energy. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{functions_8c_af58a3b6cba504530818b30d7884983a1}{hartree\+\_\+fock\+\_\+energy}} (double nuc\+\_\+repul, double one\+\_\+el\+\_\+energy, double two\+\_\+el\+\_\+energy)
+\begin{DoxyCompactList}\small\item\em Calculates the total Hartree-\/\+Fock energy. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{functions_8c_a2308951585169e347764a05b130ae42a}{get\+\_\+integral}} (int i, int j, int k, int l, const int32\+\_\+t \texorpdfstring{$\ast$}{*}index, const double \texorpdfstring{$\ast$}{*}value, int64\+\_\+t n\+\_\+integrals)
+\begin{DoxyCompactList}\small\item\em Retrieves integral value. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{functions_8c_a54c1e10698526dd48efc2c63efcadf20}{MP2\+\_\+energy\+\_\+correction}} (int32\+\_\+t \texorpdfstring{$\ast$}{*}index, double \texorpdfstring{$\ast$}{*}value, double \texorpdfstring{$\ast$}{*}mo\+\_\+energy, int32\+\_\+t n\+\_\+up, int64\+\_\+t n\+\_\+integrals)
+\begin{DoxyCompactList}\small\item\em MP2 energy correction calculation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the functions associated with the HF and MP2 energy calculation. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{functions_8c_a2308951585169e347764a05b130ae42a}\label{functions_8c_a2308951585169e347764a05b130ae42a} 
+\index{functions.c@{functions.c}!get\_integral@{get\_integral}}
+\index{get\_integral@{get\_integral}!functions.c@{functions.c}}
+\doxysubsubsection{\texorpdfstring{get\_integral()}{get\_integral()}}
+{\footnotesize\ttfamily double get\+\_\+integral (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{int}]{k,  }\item[{int}]{l,  }\item[{const int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{index,  }\item[{const double \texorpdfstring{$\ast$}{*}}]{value,  }\item[{int64\+\_\+t}]{n\+\_\+integrals }\end{DoxyParamCaption})}
+
+
+
+Retrieves integral value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & First index \\
+\hline
+{\em j} & Second index \\
+\hline
+{\em k} & Third index \\
+\hline
+{\em l} & Fourth index \\
+\hline
+{\em index} & Array containing four-\/index combinations \\
+\hline
+{\em value} & Array containing integral values \\
+\hline
+{\em n\+\_\+integrals} & Total number of integrals \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Value of the requested integral or 0.\+0 if not found 
+\end{DoxyReturn}
+\Hypertarget{functions_8c_af58a3b6cba504530818b30d7884983a1}\label{functions_8c_af58a3b6cba504530818b30d7884983a1} 
+\index{functions.c@{functions.c}!hartree\_fock\_energy@{hartree\_fock\_energy}}
+\index{hartree\_fock\_energy@{hartree\_fock\_energy}!functions.c@{functions.c}}
+\doxysubsubsection{\texorpdfstring{hartree\_fock\_energy()}{hartree\_fock\_energy()}}
+{\footnotesize\ttfamily double hartree\+\_\+fock\+\_\+energy (\begin{DoxyParamCaption}\item[{double}]{nuc\+\_\+repul,  }\item[{double}]{one\+\_\+el\+\_\+energy,  }\item[{double}]{two\+\_\+el\+\_\+energy }\end{DoxyParamCaption})}
+
+
+
+Calculates the total Hartree-\/\+Fock energy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nuc\+\_\+repul} & Nuclear repulsion energy \\
+\hline
+{\em one\+\_\+el\+\_\+energy} & One-\/electron energy contribution \\
+\hline
+{\em two\+\_\+el\+\_\+energy} & Two-\/electron energy contribution \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Total Hartree-\/\+Fock energy 
+\end{DoxyReturn}
+\Hypertarget{functions_8c_a54c1e10698526dd48efc2c63efcadf20}\label{functions_8c_a54c1e10698526dd48efc2c63efcadf20} 
+\index{functions.c@{functions.c}!MP2\_energy\_correction@{MP2\_energy\_correction}}
+\index{MP2\_energy\_correction@{MP2\_energy\_correction}!functions.c@{functions.c}}
+\doxysubsubsection{\texorpdfstring{MP2\_energy\_correction()}{MP2\_energy\_correction()}}
+{\footnotesize\ttfamily double MP2\+\_\+energy\+\_\+correction (\begin{DoxyParamCaption}\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{index,  }\item[{double \texorpdfstring{$\ast$}{*}}]{value,  }\item[{double \texorpdfstring{$\ast$}{*}}]{mo\+\_\+energy,  }\item[{int32\+\_\+t}]{n\+\_\+up,  }\item[{int64\+\_\+t}]{n\+\_\+integrals }\end{DoxyParamCaption})}
+
+
+
+MP2 energy correction calculation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Array containing four-\/index combinations \\
+\hline
+{\em value} & Array containing integral values \\
+\hline
+{\em mo\+\_\+energy} & Array of molecular orbital energies \\
+\hline
+{\em n\+\_\+up} & Number of occupied orbitals \\
+\hline
+{\em n\+\_\+integrals} & Total number of integrals \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MP2 energy correction 
+\end{DoxyReturn}
+\Hypertarget{functions_8c_a1ab0b66e631fc105a85a48c529e9520d}\label{functions_8c_a1ab0b66e631fc105a85a48c529e9520d} 
+\index{functions.c@{functions.c}!one\_electron\_energy@{one\_electron\_energy}}
+\index{one\_electron\_energy@{one\_electron\_energy}!functions.c@{functions.c}}
+\doxysubsubsection{\texorpdfstring{one\_electron\_energy()}{one\_electron\_energy()}}
+{\footnotesize\ttfamily double one\+\_\+electron\+\_\+energy (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{data,  }\item[{int32\+\_\+t}]{n\+\_\+up,  }\item[{int32\+\_\+t}]{mo\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Calculates the one-\/electron energy contribution to the Hartree-\/\+Fock energy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Array containing one-\/electron integrals \\
+\hline
+{\em n\+\_\+up} & Number of occupied orbitals \\
+\hline
+{\em mo\+\_\+num} & Total number of molecular orbitals \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+One-\/electron energy contribution 
+\end{DoxyReturn}
+\Hypertarget{functions_8c_abd47080470fb66ea5d886e04ac92451a}\label{functions_8c_abd47080470fb66ea5d886e04ac92451a} 
+\index{functions.c@{functions.c}!two\_electron\_energy@{two\_electron\_energy}}
+\index{two\_electron\_energy@{two\_electron\_energy}!functions.c@{functions.c}}
+\doxysubsubsection{\texorpdfstring{two\_electron\_energy()}{two\_electron\_energy()}}
+{\footnotesize\ttfamily double two\+\_\+electron\+\_\+energy (\begin{DoxyParamCaption}\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{index,  }\item[{double \texorpdfstring{$\ast$}{*}}]{value,  }\item[{int32\+\_\+t}]{n\+\_\+up,  }\item[{int64\+\_\+t}]{n\+\_\+integrals }\end{DoxyParamCaption})}
+
+
+
+Calculates the two-\/electron energy contribution to the Hartree-\/\+Fock energy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Array containing four-\/index combinations for two-\/electron integrals \\
+\hline
+{\em value} & Array containing values of two-\/electron integrals \\
+\hline
+{\em n\+\_\+up} & Number of occupied orbitals \\
+\hline
+{\em n\+\_\+integrals} & Total number of two-\/electron integrals \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Two-\/electron energy contribution 
+\end{DoxyReturn}
+Iterate over the stored integrals
+
+Substract the exchange integral, \texorpdfstring{$\ast$}{*}2 for permutational symmetry
