@@ -176,6 +176,31 @@ void print_output(FILE* trajectory_file, FILE* energy_file, FILE* extended_file,
 }
 
 /**
+ * @brief Initialize random velocities 
+ * @param velocities Array of velocities
+ * @param masses Array of masses
+ * @param temperature Temperature
+ * @param n_atoms Number of atoms
+ */
+void initialize_velocities(double** velocities, double* masses, double temperature, int n_atoms) {
+    // Loop over all atoms
+    for (int i = 0; i < n_atoms; i++) {
+        
+        // Calculate mean velocity for the given temperature
+        double mean_velocity = sqrt(3 * R * temperature/masses[i]); 
+        
+        // Get random angles phi between 0 and 2PI and theta between 0 and PI
+        float phi = ((float) rand() / RAND_MAX) * 2.0f * PI;
+        float theta = ((float) rand() / RAND_MAX) * 1.0f * PI;
+        
+        // Initialize velocity vector in random direction and with mean velocity
+        velocities[i][0] = sinf(theta) * cosf(phi) * mean_velocity;
+        velocities[i][1] = sinf(theta) * sinf(phi) * mean_velocity;
+        velocities[i][2] = cosf(theta) * mean_velocity;
+    }
+}
+
+/**
  * @brief Calculates distances between all pairs of atoms
  * @param coords Array of atomic coordinates
  * @param distances 2D array to store pairwise distances
@@ -282,6 +307,23 @@ void check_energy(double previous_energy, double total_energy, int step) {
     double difference = abs(total_energy - previous_energy); // Difference in total energy between subsequent steps
     if (difference > 0.10 * abs(previous_energy)) {
         printf("WARNING: The total energy is varying by more than 10 %% in step %5d.\n", step);
+    }
+}
+
+/**
+ * @brief Velocity-rescaling thermostat
+ * @param kinetic_energy Kinetic energy
+ * @param temperature Desired temperature
+ * @param velocities Velocities
+ * @param n_atoms Number of atoms
+ */
+void thermostat(double kinetic_energy, double temperature, double** velocities, int n_atoms) {
+    double actual_temperature = 2 * kinetic_energy/(n_atoms * R);
+    double factor = sqrt(temperature/actual_temperature);
+    for (int i = 0; i < n_atoms; i++) {
+        for (int j = 0; j < 3; j++) {
+            velocities[i][j] = velocities[i][j] * factor;
+        }
     }
 }
 

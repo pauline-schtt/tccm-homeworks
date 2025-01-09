@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
     // Default settings for number of simulation steps and time step  
     int n_steps = 1000; //! Number of simulation steps
     double dt = 0.2; //! Time step
+    double temperature = 1; //! Temperature 
+    int thermo = 0; //! Defines whether thermostat should be used
 
     // Check which command line options are provided
     if (argc != 2) {
@@ -36,10 +38,20 @@ int main(int argc, char *argv[]) {
             }
             if (strcmp(argv[i], "-t") == 0) {
                 if (i + 1 < argc) {
-                    dt = atoi(argv[i + 1]);
+                    dt = atof(argv[i + 1]);
                 }
                 else {
-                    fprintf(stderr, "Option -t requires the specification of the timestep, e.g. dt = 0.1"); 
+                    fprintf(stderr, "Option -t requires the specification of the timestep, e.g. -t 0.1"); 
+                    return 1;
+                }
+            }
+            if (strcmp(argv[i], "-v") == 0) {
+                if (i + 1 < argc) {
+                    thermo = 1;
+                    temperature = atof(argv[i + 1]);
+                }
+                else {
+                    fprintf(stderr, "Option -v requires the specification of a temperature, e.g. -v 10"); 
                     return 1;
                 }
             }
@@ -104,18 +116,24 @@ int main(int argc, char *argv[]) {
 
     // Run 1000 steps of MD simulation
     
+    // Initialize energy variables
     double kinetic_energy; //! Variable for storing the kinetic energy
     double potential_energy; //! Variable for storing the potential energy
     double total_energy; //! Variable for storing the total energy
     double previous_energy; //! Variable for storing the total energy of the previous step
-
+    
+    // If thermostat option is chosen, initialize random velocities
+    if (thermo == 1) {
+        initialize_velocities(velocities, masses, temperature, n_atoms);
+    }
+    
     // Initialize timing variables
     clock_t start_md, end_md;
     double total_md_time;
 
     start_md = clock(); // Start timing the MD simulation
 
-    for (int i =0; i < n_steps; i++){
+    for (int i = 0; i < n_steps; i++){
 
         // Update positions, velocities and accelerations
         update_positions(coords, velocities, accelerations, dt, n_atoms);
@@ -127,10 +145,20 @@ int main(int argc, char *argv[]) {
         kinetic_energy = calculate_kinetic_energy(velocities, masses, n_atoms);
         potential_energy = calculate_potential_energy(distances, n_atoms, epsilon, sigma);
         previous_energy = total_energy;
+        
+        // If thermostat is activated, apply velocity-rescale thermostat
+        if (thermo == 1) {
+            thermostat(kinetic_energy, temperature, velocities, n_atoms);
+            kinetic_energy = calculate_kinetic_energy(velocities, masses, n_atoms);
+        }
+        
+        // Calculate total energy
         total_energy = calculate_total_energy(kinetic_energy, potential_energy);
         
-        // Check if the energy is conserved or varies by more than 10 %
-        check_energy(previous_energy, total_energy, i);
+        // Check if the total energy is conserved or varies by more than 10 %
+        if (thermo == 0) {
+            check_energy(previous_energy, total_energy, i+1);
+        } 
 
         // Print output
         print_output(trajectory_file, energy_file, extended_file, acceleration_file, 
