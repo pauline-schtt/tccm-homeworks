@@ -1,3 +1,8 @@
+/**
+ * @file functions.c
+ * @brief Contains the functions associated with the molecular dynamics simulation.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -85,7 +90,7 @@ void read_coords_and_masses(const char* filename,
     }
     
     // Skip the first line containing the number of atoms
-    int dummy; //!< Dummy variable used by read_coords_and_masses for reading the input
+    int dummy; // Dummy variable used by read_coords_and_masses for reading the input
     fscanf(file, "%d", &dummy);
     
     // Read coordinates and masses
@@ -181,11 +186,11 @@ void calculate_distances(double** coords, double** distances, int n_atoms) {
     for (int i = 0; i < n_atoms; i++) {
         distances[i][i] = 0.0;  // Distance to the atom itself is 0.0
         for (int j = i + 1; j < n_atoms; j++) {
-            double dx = coords[i][0] - coords[j][0]; //!< Variable used by calculate_distances() for the distance in x 
-            double dy = coords[i][1] - coords[j][1]; //!< Variable used by calculate_distances() for the distance in y
-            double dz = coords[i][2] - coords[j][2]; //!< Variable used by calculate_distances() for the distance in z
+            double dx = coords[i][0] - coords[j][0]; // Distance in x 
+            double dy = coords[i][1] - coords[j][1]; // Distance in y
+            double dz = coords[i][2] - coords[j][2]; // Distance in z
             
-            double r = sqrt(dx*dx + dy*dy + dz*dz);  //!< Varible used by calculate_distances() for the distance in 3D
+            double r = sqrt(dx*dx + dy*dy + dz*dz);  // Distance in 3D
             // Pairwise distance matrix is symmetric
             distances[i][j] = r;
             distances[j][i] = r;
@@ -203,9 +208,9 @@ void calculate_distances(double** coords, double** distances, int n_atoms) {
 static double lennard_jones_potential(double r,
                                       double epsilon,
                                       double sigma) {
-    double sigma_r = sigma / r; //!< Variable used by lennard_jones_potential() for storing sigma/r
-    double sigma_r_6 = pow(sigma_r, 6); //!< Variable used by lennard_jones_potential() for storing the sixth power of sigma_r
-    double sigma_r_12 = sigma_r_6 * sigma_r_6; //!< Variable used by lennard_jones_potential() for storing the 12th power of sigma:r
+    double sigma_r = sigma / r; 
+    double sigma_r_6 = pow(sigma_r, 6);
+    double sigma_r_12 = sigma_r_6 * sigma_r_6;
     return 4.0 * epsilon * (sigma_r_12 - sigma_r_6);
 }
 
@@ -221,7 +226,7 @@ double calculate_potential_energy(double** distances,
                                   int n_atoms,
                                   double epsilon,
                                   double sigma) {
-    double total_potential = 0.0; //!< Variable used by calculate_potential_energy() for updating the potential energy
+    double total_potential = 0.0; 
     
     // Sum over all unique pairs of i and j where j > i
     for (int i = 0; i < n_atoms; i++) {
@@ -244,12 +249,12 @@ double calculate_potential_energy(double** distances,
 double calculate_kinetic_energy(double** velocities,
                                 double* masses,
                                 int n_atoms) {
-    double total_kinetic = 0.0; //!< Variable used by calculate_kinetic_energy() for updating the kinetic energy
+    double total_kinetic = 0.0;
     
     for (int i = 0; i < n_atoms; i++) {
         double v_squared = velocities[i][0] * velocities[i][0] + 
                            velocities[i][1] * velocities[i][1] +
-                           velocities[i][2] * velocities[i][2]; //!< Varibale used by calculate_kinetic_energy() for the sum of velocity squares
+                           velocities[i][2] * velocities[i][2]; 
         total_kinetic += 0.5 * masses[i] * v_squared;
     }
     
@@ -274,7 +279,7 @@ double calculate_total_energy(double kinetic_energy, double potential_energy) {
  * @warning Prints warning if energy varies by more than 10%
  */
 void check_energy(double previous_energy, double total_energy, int step) {
-    double difference = abs(total_energy - previous_energy); //!< Variable used by check_energy() for the difference in total energy between subsequent steps
+    double difference = abs(total_energy - previous_energy); // Difference in total energy between subsequent steps
     if (difference > 0.10 * abs(previous_energy)) {
         printf("WARNING: The total energy is varying by more than 10 %% in step %5d.\n", step);
     }
@@ -290,9 +295,9 @@ void check_energy(double previous_energy, double total_energy, int step) {
 static double calculate_U(double r,
                           double epsilon,
                           double sigma) {
-    double sigma_r = sigma / r; //!< Variable used by calculate_U() for storing sigma/r
-    double sigma_r_6 = pow(sigma_r, 6); //!< Variable used by calculate_U() for the sixth power of sigma_r
-    double sigma_r_12 = sigma_r_6 * sigma_r_6; //!< Variable used by calculate_U() for the 12th power of sigma_r
+    double sigma_r = sigma / r;
+    double sigma_r_6 = pow(sigma_r, 6); 
+    double sigma_r_12 = sigma_r_6 * sigma_r_6; 
     return 24.0 * (epsilon / r) * (sigma_r_6 - 2.0 * sigma_r_12); 
 }
 
@@ -325,12 +330,12 @@ void calculate_accelerations(double** coords,
     for (int i = 0; i < n_atoms; i++) {
         for (int j = 0; j < n_atoms; j++) {
             if (i != j) {  // To avoid self-interaction
-                double r = distances[i][j]; //!< Variable used by calculate_accelerations() for the distance
-                double U = calculate_U(r, epsilon, sigma); //!< Variable used by calculate_accelerations() for the scaled potential U
+                double r = distances[i][j];
+                double U = calculate_U(r, epsilon, sigma);
                 
-                double dx = coords[i][0] - coords[j][0]; //!< Variable used by calculate_accelerations() for the distance in x
-                double dy = coords[i][1] - coords[j][1]; //!< Variable used by calculate_accelerations() for the distance in y
-                double dz = coords[i][2] - coords[j][2]; //!< Variable used by calculate_accelerations() for the distance in z
+                double dx = coords[i][0] - coords[j][0]; // Distance in x
+                double dy = coords[i][1] - coords[j][1]; // Distance in y
+                double dz = coords[i][2] - coords[j][2]; // Distance in z
                 
                 // Calculate accelerations
                 accelerations[i][0] += - (1 / masses[i]) * U * (dx / r);
@@ -354,7 +359,7 @@ void update_positions(double** coords,
                       double** accelerations,
                       double dt,
                       int n_atoms) {
-    double dt_2 = 0.5 * dt * dt; //!< Variable used by update_positions for the square of dt
+    double dt_2 = 0.5 * dt * dt; // Square of dt * 0.5
     for (int i = 0; i < n_atoms; i++) {
         // Calculate new positions
         coords[i][0] += velocities[i][0] * dt + accelerations[i][0] * dt_2;
