@@ -9,13 +9,20 @@
 #include <time.h>
 #include "headers.h"
 
+/**
+ * @brief The main entry point of the program.
+ * 
+ * This program manages reading of the input, performing the MD simualtion and generation of output.
+ * 
+ * @return int Returns 0 upon successful execution.
+ */
+
 int main(int argc, char *argv[]) {
     // Check if filename is provided
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
         return 1;
     }
-
     const char* filename = argv[1]; //! Name of the input file
     
     // Read number of atoms
@@ -70,7 +77,7 @@ int main(int argc, char *argv[]) {
 
     // Run 1000 steps of MD simulation
     int n_steps = 1000; //! Number of simulation steps
-    double dt = 0.2; //! Time step in ???
+    double dt = 0.2; //! Time step
     
     double kinetic_energy; //! Variable for storing the kinetic energy
     double potential_energy; //! Variable for storing the potential energy
