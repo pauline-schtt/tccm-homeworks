@@ -13,14 +13,12 @@
  * @param data Array containing one-electron integrals
  * @param n_up Number of occupied orbitals
  * @param mo_num Total number of molecular orbitals
+ * @var double one_el_energy
+ * Variable used by one_electron_energy() while calculating the one-electron energy
  * @return One-electron energy contribution
  */
 double one_electron_energy(double* data, int32_t n_up, int32_t mo_num){
     // printf("\nOne-electron integrals:\n i    value\n");
-    /**
-    * @var double one_el_energy
-    * @brief Variable used by one_electron_energy() while calculating the one-electron energy
-    */
     double one_el_energy = 0; 
     for (int i=0; i < n_up; i++) { // Iterate over the occupied orbitals
         one_el_energy += 2 * data[i*mo_num+i]; // Get the value of the integral and add
