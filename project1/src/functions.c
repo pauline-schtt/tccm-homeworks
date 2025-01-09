@@ -1,3 +1,10 @@
+/**
+ * @file functions.c
+ * @brief Contains the functions associated with the HF and MP2 energy calculation.
+ */
+
+#include <stdio.h>
+
 #include <stdint.h>
 #include <stdio.h>
 

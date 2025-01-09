@@ -1,4 +1,8 @@
-// Function headers
+/**
+ * @file headers.h
+ * @brief Contains the function headers.
+ */
+
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 

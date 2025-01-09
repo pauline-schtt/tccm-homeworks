@@ -35,7 +35,7 @@ The installation steps can be found in the INSTALL.md file.
 
 ## Usage
 
-To calculate the Hartree-Fock and MP2 energies, provide the full path to the HDF5 file containing the molecular data and integrals as an argument to the program. Important notice: this program works exclusively with the file in HDF5 format, XYZ files won't produce any results.
+To calculate the Hartree-Fock and MP2 energies, provide the full path to the HDF5 file containing the molecular data and integrals as an argument to the program. Important notice: this program works exclusively with the file in HDF5 format, other formats won't produce any results.
 
 Example:
 ```sh
