@@ -18,11 +18,38 @@
  */
 
 int main(int argc, char *argv[]) {
-    // Check if filename is provided
+    // Default settings for number of simulation steps and time step  
+    int n_steps = 1000; //! Number of simulation steps
+    double dt = 0.2; //! Time step
+
+    // Check which command line options are provided
     if (argc != 2) {
-        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-        return 1;
+        for (int i = 1; i < argc; i++) { // Loop over command line arguments
+            if (strcmp(argv[i], "-n") == 0) {
+                if (i + 1 < argc) {
+                    n_steps = atoi(argv[i + 1]);
+                }
+                else {
+                    fprintf(stderr, "Option -n requires the specification of the number of steps, e.g. -n 2000");
+                    return 1;
+                }
+            }
+            if (strcmp(argv[i], "-t") == 0) {
+                if (i + 1 < argc) {
+                    dt = atoi(argv[i + 1]);
+                }
+                else {
+                    fprintf(stderr, "Option -t requires the specification of the timestep, e.g. dt = 0.1"); 
+                    return 1;
+                }
+            }
+        }
+        if (argc == 1) {
+            fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+            return 1;
+        }
     }
+
     const char* filename = argv[1]; //! Name of the input file
     
     // Read number of atoms
@@ -76,8 +103,6 @@ int main(int argc, char *argv[]) {
     FILE* acceleration_file = open_output(acceleration_name); //! File where the accelerations are written
 
     // Run 1000 steps of MD simulation
-    int n_steps = 1000; //! Number of simulation steps
-    double dt = 0.2; //! Time step
     
     double kinetic_energy; //! Variable for storing the kinetic energy
     double potential_energy; //! Variable for storing the potential energy
