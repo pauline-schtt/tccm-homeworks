@@ -16,7 +16,7 @@ Done!
 
 ################## Energy Summary ##################
 
-Nuclear repulsion energy:           23.878820
+Nuclear repulsion energy:            23.878820
 One-electron energy:                 -172.509361
 Two-electron energy:                 55.747594
 Hartree-Fock energy:                 -92.882947
@@ -28,6 +28,12 @@ Total energy (HF + MP2):             -93.172222
 Number of occupied orbitals:         7
 Number of molecular orbitals:        33
 Number of two-electron integrals:    157641
+
+################# Timing Information ################
+HF calculation time:                 0.000310 seconds
+MP2 calculation time:                1.011397 seconds
+I/O and setup time:                  0.005990 seconds
+Total execution time:                1.017697 seconds
 
 Your calculation is done.
 Thank you for using the program!
