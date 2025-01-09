@@ -24,7 +24,7 @@ Ensure you have the following installed on your system:
 
 ## Test
 
-The program was tested on MacOS Sequoia 15.2 and Ubuntu 24.04. You could find the examples of the input file as well as the obtained trajectory from it in `data` folder. Please, pay close attention to the obtained values of energies during the simulation.
+The program was tested on MacOS Sequoia 15.2 and Ubuntu 24.04. You can find an example input file in the `data` folder, while the corresponding output files can be found in the `test` folder. As no random velocity initialization is performed, you should obtain qualitatively similar results when running the program with the test input.
 
 ## Cleaning up
 
