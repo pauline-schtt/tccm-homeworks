@@ -30,8 +30,10 @@ The installation steps can be found in the INSTALL.md file.
 ## Usage
 
 To run the molecular dynamics simulation, provide the full path to the input file containing the atomic coordinates and masses as an argument to the program. The example of the input file can be found in `data/inp.txt`.
+Furthermore, the number of MD steps to perform and the time step can be adjusted through the command line options -n and -t followed by the desired parameter.
 
-Example:
+Examples:
 ```sh
 ./MD data/inp.txt
+./MD data/inp.txt -n 2000 -t 0.1
 ```
