@@ -1,0 +1,35 @@
+\doxysection{headers.\+h}
+\hypertarget{headers_8h_source}{}\label{headers_8h_source}\mbox{\hyperlink{headers_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Function\ prototypes}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FUNCTIONS\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FUNCTIONS\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keywordtype}{double}**\ \mbox{\hyperlink{headers_8h_a99c54a8d17aef7eef6a1e355adb848a0}{allocate\_2d\_array}}(\textcolor{keywordtype}{int}\ rows,\ \textcolor{keywordtype}{int}\ cols);}
+\DoxyCodeLine{00006\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a8bde3b107979474a0544946fbafcab79}{free\_2d\_array}}(\textcolor{keywordtype}{double}**\ array,\ \textcolor{keywordtype}{int}\ rows);}
+\DoxyCodeLine{00007\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a0a2791be32d07e29d35abebdfd77de42}{read\_natoms}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ filename);}
+\DoxyCodeLine{00008\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a92a91fd41ead73072da221d6bdcd1566}{read\_coords\_and\_masses}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ filename,\ \textcolor{keywordtype}{double}**\ coords,\ \textcolor{keywordtype}{double}*\ masses,\ \textcolor{keywordtype}{int}\ n\_atoms);}
+\DoxyCodeLine{00009\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a7641eadcdccd4a0081eddf2f1bd8b6e6}{validate\_atoms}}(\textcolor{keywordtype}{double}*\ masses,\ \textcolor{keywordtype}{double}*\ epsilon,\ \textcolor{keywordtype}{double}*\ sigma,\ \textcolor{keywordtype}{int}\ n\_atoms);}
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a132c79f5bb21c173d7ae0519783ebc4b}{calculate\_distances}}(\textcolor{keywordtype}{double}**\ coords,\ \textcolor{keywordtype}{double}**\ distances,\ \textcolor{keywordtype}{int}\ n\_atoms);}
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{headers_8h_ae215d330e8c33837567114786eeea448}{calculate\_potential\_energy}}(\textcolor{keywordtype}{double}**\ distances,\ \textcolor{keywordtype}{int}\ n\_atoms,\ \textcolor{keywordtype}{double}\ epsilon,\ \textcolor{keywordtype}{double}\ sigma);}
+\DoxyCodeLine{00012\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{headers_8h_a49abd4221fa796fa76f3f40fc859585f}{calculate\_kinetic\_energy}}(\textcolor{keywordtype}{double}**\ velocities,\ \textcolor{keywordtype}{double}*\ masses,\ \textcolor{keywordtype}{int}\ n\_atoms);}
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{headers_8h_a10fbdeea88c7a041b59bc8aac787dc6b}{calculate\_total\_energy}}(\textcolor{keywordtype}{double}\ kinetic\_energy,\ \textcolor{keywordtype}{double}\ potential\_energy);}
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a4cb0a873cb12f7bb49f648d3ed16bc22}{check\_energy}}(\textcolor{keywordtype}{double}\ previous\_energy,\ \textcolor{keywordtype}{double}\ total\_energy,\ \textcolor{keywordtype}{int}\ step);}
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a5fa1805cc2f155e9ef2682deb6833977}{calculate\_accelerations}}(\textcolor{keywordtype}{double}**\ coords,\ \textcolor{keywordtype}{double}*\ masses,\ \textcolor{keywordtype}{int}\ n\_atoms,\ \textcolor{keywordtype}{double}\ epsilon,\ \textcolor{keywordtype}{double}\ sigma,\ \textcolor{keywordtype}{double}**\ distances,\ \textcolor{keywordtype}{double}**\ accelerations);}
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a0e3f4db4744222634e6acfc96f941b5d}{update\_positions}}(\textcolor{keywordtype}{double}**\ coords,\ \textcolor{keywordtype}{double}**\ velocities,\ \textcolor{keywordtype}{double}**\ accelerations,\ \textcolor{keywordtype}{double}\ dt,\ \textcolor{keywordtype}{int}\ n\_atoms);}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a85dcdcb0205ca1879f000dbcb5556790}{update\_velocities}}(\textcolor{keywordtype}{double}**\ velocities,\ \textcolor{keywordtype}{double}**\ accelerations,\ \textcolor{keywordtype}{double}\ dt,\ \textcolor{keywordtype}{int}\ n\_atoms);}
+\DoxyCodeLine{00018\ FILE*\ \mbox{\hyperlink{headers_8h_add0e56a43cfb8aeac8475989e4d72e40}{open\_output}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ filename);}
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a8e5e0822f0773d62dfc2ba3d78d7a6ad}{print\_output}}(FILE*\ trajectory\_file,\ FILE*\ energy\_file,\ FILE*\ extended\_file,\ FILE*\ acceleration\_file,\ \textcolor{keywordtype}{int}\ n\_atoms,\ \textcolor{keywordtype}{int}\ step,\ \textcolor{keywordtype}{double}\ kinetic\_energy,\ \textcolor{keywordtype}{double}\ potential\_energy,\ \textcolor{keywordtype}{double}\ total\_energy,\ \textcolor{keywordtype}{double}**\ coords,\ \textcolor{keywordtype}{double}**\ velocities,\ \textcolor{keywordtype}{double}**\ accelerations);\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ Constants}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ CONSTANTS\_H}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ CONSTANTS\_H}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ ARGON\_MASS\ 39.948}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ ARGON\_EPSILON\ 0.0661\ }\textcolor{comment}{//\ j/mol}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ARGON\_SIGMA\ 0.3345\ }\textcolor{comment}{//\ nm}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

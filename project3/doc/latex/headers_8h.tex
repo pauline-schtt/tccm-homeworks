@@ -1,0 +1,453 @@
+\doxysection{headers.\+h File Reference}
+\hypertarget{headers_8h}{}\label{headers_8h}\index{headers.h@{headers.h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{headers_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{headers_8h_ac7a36608ac7b2450d147e32c12ef6182}{CONSTANTS\+\_\+H}}
+\item 
+\#define \mbox{\hyperlink{headers_8h_a16b4d46e8d3a7f56274508aa1165036f}{ARGON\+\_\+\+MASS}}~39.\+948
+\item 
+\#define \mbox{\hyperlink{headers_8h_ac30e58c6e74fd76ab99b37c2ac8fabed}{ARGON\+\_\+\+EPSILON}}~0.\+0661
+\item 
+\#define \mbox{\hyperlink{headers_8h_a18d6e0cc449baa91e93ff6f2b73e5f6d}{ARGON\+\_\+\+SIGMA}}~0.\+3345
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{headers_8h_a99c54a8d17aef7eef6a1e355adb848a0}{allocate\+\_\+2d\+\_\+array}} (int rows, int cols)
+\begin{DoxyCompactList}\small\item\em Allocates a 2D array of doubles. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a8bde3b107979474a0544946fbafcab79}{free\+\_\+2d\+\_\+array}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}array, int rows)
+\begin{DoxyCompactList}\small\item\em Frees a 2D array from memory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{headers_8h_a0a2791be32d07e29d35abebdfd77de42}{read\+\_\+natoms}} (const char \texorpdfstring{$\ast$}{*}filename)
+\begin{DoxyCompactList}\small\item\em Reads the number of atoms from an input file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a92a91fd41ead73072da221d6bdcd1566}{read\+\_\+coords\+\_\+and\+\_\+masses}} (const char \texorpdfstring{$\ast$}{*}filename, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}masses, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Reads atomic coordinates and masses from an input file. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{headers_8h_a7641eadcdccd4a0081eddf2f1bd8b6e6}{validate\+\_\+atoms}} (double \texorpdfstring{$\ast$}{*}masses, double \texorpdfstring{$\ast$}{*}epsilon, double \texorpdfstring{$\ast$}{*}sigma, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Validates that all atoms in the system are argon. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a132c79f5bb21c173d7ae0519783ebc4b}{calculate\+\_\+distances}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}distances, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Calculates distances between all pairs of atoms. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{headers_8h_ae215d330e8c33837567114786eeea448}{calculate\+\_\+potential\+\_\+energy}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}distances, int n\+\_\+atoms, double epsilon, double sigma)
+\begin{DoxyCompactList}\small\item\em Calculates total potential energy of the system. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{headers_8h_a49abd4221fa796fa76f3f40fc859585f}{calculate\+\_\+kinetic\+\_\+energy}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, double \texorpdfstring{$\ast$}{*}masses, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Calculates total kinetic energy of the system. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{headers_8h_a10fbdeea88c7a041b59bc8aac787dc6b}{calculate\+\_\+total\+\_\+energy}} (double kinetic\+\_\+energy, double potential\+\_\+energy)
+\begin{DoxyCompactList}\small\item\em Calculates total energy of the system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a4cb0a873cb12f7bb49f648d3ed16bc22}{check\+\_\+energy}} (double previous\+\_\+energy, double total\+\_\+energy, int step)
+\begin{DoxyCompactList}\small\item\em Checks energy conservation between simulation steps. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a5fa1805cc2f155e9ef2682deb6833977}{calculate\+\_\+accelerations}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}masses, int n\+\_\+atoms, double epsilon, double sigma, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}distances, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}accelerations)
+\begin{DoxyCompactList}\small\item\em Calculates acceleration vectors for all atoms. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a0e3f4db4744222634e6acfc96f941b5d}{update\+\_\+positions}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}accelerations, double dt, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Updates atomic positions using Verlet algorithm. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a85dcdcb0205ca1879f000dbcb5556790}{update\+\_\+velocities}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}accelerations, double dt, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Updates atomic velocities using Verlet algorithm. \end{DoxyCompactList}\item 
+FILE \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{headers_8h_add0e56a43cfb8aeac8475989e4d72e40}{open\+\_\+output}} (const char \texorpdfstring{$\ast$}{*}filename)
+\begin{DoxyCompactList}\small\item\em Opens a file for writing output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a8e5e0822f0773d62dfc2ba3d78d7a6ad}{print\+\_\+output}} (FILE \texorpdfstring{$\ast$}{*}trajectory\+\_\+file, FILE \texorpdfstring{$\ast$}{*}energy\+\_\+file, FILE \texorpdfstring{$\ast$}{*}extended\+\_\+file, FILE \texorpdfstring{$\ast$}{*}acceleration\+\_\+file, int n\+\_\+atoms, int step, double kinetic\+\_\+energy, double potential\+\_\+energy, double total\+\_\+energy, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}accelerations)
+\begin{DoxyCompactList}\small\item\em Prints simulation output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{headers_8h_ac30e58c6e74fd76ab99b37c2ac8fabed}\label{headers_8h_ac30e58c6e74fd76ab99b37c2ac8fabed} 
+\index{headers.h@{headers.h}!ARGON\_EPSILON@{ARGON\_EPSILON}}
+\index{ARGON\_EPSILON@{ARGON\_EPSILON}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{ARGON\_EPSILON}{ARGON\_EPSILON}}
+{\footnotesize\ttfamily \#define ARGON\+\_\+\+EPSILON~0.\+0661}
+
+\Hypertarget{headers_8h_a16b4d46e8d3a7f56274508aa1165036f}\label{headers_8h_a16b4d46e8d3a7f56274508aa1165036f} 
+\index{headers.h@{headers.h}!ARGON\_MASS@{ARGON\_MASS}}
+\index{ARGON\_MASS@{ARGON\_MASS}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{ARGON\_MASS}{ARGON\_MASS}}
+{\footnotesize\ttfamily \#define ARGON\+\_\+\+MASS~39.\+948}
+
+\Hypertarget{headers_8h_a18d6e0cc449baa91e93ff6f2b73e5f6d}\label{headers_8h_a18d6e0cc449baa91e93ff6f2b73e5f6d} 
+\index{headers.h@{headers.h}!ARGON\_SIGMA@{ARGON\_SIGMA}}
+\index{ARGON\_SIGMA@{ARGON\_SIGMA}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{ARGON\_SIGMA}{ARGON\_SIGMA}}
+{\footnotesize\ttfamily \#define ARGON\+\_\+\+SIGMA~0.\+3345}
+
+\Hypertarget{headers_8h_ac7a36608ac7b2450d147e32c12ef6182}\label{headers_8h_ac7a36608ac7b2450d147e32c12ef6182} 
+\index{headers.h@{headers.h}!CONSTANTS\_H@{CONSTANTS\_H}}
+\index{CONSTANTS\_H@{CONSTANTS\_H}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{CONSTANTS\_H}{CONSTANTS\_H}}
+{\footnotesize\ttfamily \#define CONSTANTS\+\_\+H}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{headers_8h_a99c54a8d17aef7eef6a1e355adb848a0}\label{headers_8h_a99c54a8d17aef7eef6a1e355adb848a0} 
+\index{headers.h@{headers.h}!allocate\_2d\_array@{allocate\_2d\_array}}
+\index{allocate\_2d\_array@{allocate\_2d\_array}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{allocate\_2d\_array()}{allocate\_2d\_array()}}
+{\footnotesize\ttfamily double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} allocate\+\_\+2d\+\_\+array (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{cols }\end{DoxyParamCaption})}
+
+
+
+Allocates a 2D array of doubles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & Number of rows in the array \\
+\hline
+{\em cols} & Number of columns in the array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the allocated 2D array 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exits} & with code 1 if memory allocation fails \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{headers_8h_a5fa1805cc2f155e9ef2682deb6833977}\label{headers_8h_a5fa1805cc2f155e9ef2682deb6833977} 
+\index{headers.h@{headers.h}!calculate\_accelerations@{calculate\_accelerations}}
+\index{calculate\_accelerations@{calculate\_accelerations}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_accelerations()}{calculate\_accelerations()}}
+{\footnotesize\ttfamily void calculate\+\_\+accelerations (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{coords,  }\item[{double \texorpdfstring{$\ast$}{*}}]{masses,  }\item[{int}]{n\+\_\+atoms,  }\item[{double}]{epsilon,  }\item[{double}]{sigma,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{distances,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{accelerations }\end{DoxyParamCaption})}
+
+
+
+Calculates acceleration vectors for all atoms. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coords} & Array of atomic coordinates \\
+\hline
+{\em masses} & Array of atomic masses \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+{\em epsilon} & Epsilon parameter for LJ potential \\
+\hline
+{\em sigma} & Sigma parameter for LJ potential \\
+\hline
+{\em distances} & 2D array of pairwise distances \\
+\hline
+{\em accelerations} & Array to store calculated accelerations \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a5fa1805cc2f155e9ef2682deb6833977}{calculate\+\_\+accelerations()} for the distance
+
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a5fa1805cc2f155e9ef2682deb6833977}{calculate\+\_\+accelerations()} for the scaled potential U
+
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a5fa1805cc2f155e9ef2682deb6833977}{calculate\+\_\+accelerations()} for the distance in x
+
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a5fa1805cc2f155e9ef2682deb6833977}{calculate\+\_\+accelerations()} for the distance in y
+
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a5fa1805cc2f155e9ef2682deb6833977}{calculate\+\_\+accelerations()} for the distance in z\Hypertarget{headers_8h_a132c79f5bb21c173d7ae0519783ebc4b}\label{headers_8h_a132c79f5bb21c173d7ae0519783ebc4b} 
+\index{headers.h@{headers.h}!calculate\_distances@{calculate\_distances}}
+\index{calculate\_distances@{calculate\_distances}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_distances()}{calculate\_distances()}}
+{\footnotesize\ttfamily void calculate\+\_\+distances (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{coords,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{distances,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Calculates distances between all pairs of atoms. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coords} & Array of atomic coordinates \\
+\hline
+{\em distances} & 2D array to store pairwise distances \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a132c79f5bb21c173d7ae0519783ebc4b}{calculate\+\_\+distances()} for the distance in x
+
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a132c79f5bb21c173d7ae0519783ebc4b}{calculate\+\_\+distances()} for the distance in y
+
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a132c79f5bb21c173d7ae0519783ebc4b}{calculate\+\_\+distances()} for the distance in z
+
+\texorpdfstring{$<$}{<} Varible used by \doxylink{functions_8c_a132c79f5bb21c173d7ae0519783ebc4b}{calculate\+\_\+distances()} for the distance in 3D\Hypertarget{headers_8h_a49abd4221fa796fa76f3f40fc859585f}\label{headers_8h_a49abd4221fa796fa76f3f40fc859585f} 
+\index{headers.h@{headers.h}!calculate\_kinetic\_energy@{calculate\_kinetic\_energy}}
+\index{calculate\_kinetic\_energy@{calculate\_kinetic\_energy}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_kinetic\_energy()}{calculate\_kinetic\_energy()}}
+{\footnotesize\ttfamily double calculate\+\_\+kinetic\+\_\+energy (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{velocities,  }\item[{double \texorpdfstring{$\ast$}{*}}]{masses,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Calculates total kinetic energy of the system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocities} & Array of atomic velocities \\
+\hline
+{\em masses} & Array of atomic masses \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Total kinetic energy of the system 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a49abd4221fa796fa76f3f40fc859585f}{calculate\+\_\+kinetic\+\_\+energy()} for updating the kinetic energy
+
+\texorpdfstring{$<$}{<} Varibale used by \doxylink{functions_8c_a49abd4221fa796fa76f3f40fc859585f}{calculate\+\_\+kinetic\+\_\+energy()} for the sum of velocity squares\Hypertarget{headers_8h_ae215d330e8c33837567114786eeea448}\label{headers_8h_ae215d330e8c33837567114786eeea448} 
+\index{headers.h@{headers.h}!calculate\_potential\_energy@{calculate\_potential\_energy}}
+\index{calculate\_potential\_energy@{calculate\_potential\_energy}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_potential\_energy()}{calculate\_potential\_energy()}}
+{\footnotesize\ttfamily double calculate\+\_\+potential\+\_\+energy (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{distances,  }\item[{int}]{n\+\_\+atoms,  }\item[{double}]{epsilon,  }\item[{double}]{sigma }\end{DoxyParamCaption})}
+
+
+
+Calculates total potential energy of the system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em distances} & 2D array of pairwise distances \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+{\em epsilon} & Epsilon parameter for LJ potential \\
+\hline
+{\em sigma} & Sigma parameter for LJ potential \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Total potential energy of the system 
+\end{DoxyReturn}
+\texorpdfstring{$<$}{<} Varibale used by \doxylink{functions_8c_ae215d330e8c33837567114786eeea448}{calculate\+\_\+potential\+\_\+energy()} for updating the potential energy\Hypertarget{headers_8h_a10fbdeea88c7a041b59bc8aac787dc6b}\label{headers_8h_a10fbdeea88c7a041b59bc8aac787dc6b} 
+\index{headers.h@{headers.h}!calculate\_total\_energy@{calculate\_total\_energy}}
+\index{calculate\_total\_energy@{calculate\_total\_energy}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_total\_energy()}{calculate\_total\_energy()}}
+{\footnotesize\ttfamily double calculate\+\_\+total\+\_\+energy (\begin{DoxyParamCaption}\item[{double}]{kinetic\+\_\+energy,  }\item[{double}]{potential\+\_\+energy }\end{DoxyParamCaption})}
+
+
+
+Calculates total energy of the system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kinetic\+\_\+energy} & Current kinetic energy \\
+\hline
+{\em potential\+\_\+energy} & Current potential energy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Total energy of the system 
+\end{DoxyReturn}
+\Hypertarget{headers_8h_a4cb0a873cb12f7bb49f648d3ed16bc22}\label{headers_8h_a4cb0a873cb12f7bb49f648d3ed16bc22} 
+\index{headers.h@{headers.h}!check\_energy@{check\_energy}}
+\index{check\_energy@{check\_energy}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{check\_energy()}{check\_energy()}}
+{\footnotesize\ttfamily void check\+\_\+energy (\begin{DoxyParamCaption}\item[{double}]{previous\+\_\+energy,  }\item[{double}]{total\+\_\+energy,  }\item[{int}]{step }\end{DoxyParamCaption})}
+
+
+
+Checks energy conservation between simulation steps. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em previous\+\_\+energy} & Energy from previous step \\
+\hline
+{\em total\+\_\+energy} & Current total energy \\
+\hline
+{\em step} & Current simulation step \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Prints warning if energy varies by more than 10\% 
+\end{DoxyWarning}
+\texorpdfstring{$<$}{<} Variable used by \doxylink{functions_8c_a4cb0a873cb12f7bb49f648d3ed16bc22}{check\+\_\+energy()} for the difference in total energy between subsequent steps\Hypertarget{headers_8h_a8bde3b107979474a0544946fbafcab79}\label{headers_8h_a8bde3b107979474a0544946fbafcab79} 
+\index{headers.h@{headers.h}!free\_2d\_array@{free\_2d\_array}}
+\index{free\_2d\_array@{free\_2d\_array}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{free\_2d\_array()}{free\_2d\_array()}}
+{\footnotesize\ttfamily void free\+\_\+2d\+\_\+array (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{array,  }\item[{int}]{rows }\end{DoxyParamCaption})}
+
+
+
+Frees a 2D array from memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & Pointer to the 2D array to be freed \\
+\hline
+{\em rows} & Number of rows in the array \\
+\hline
+\end{DoxyParams}
+\Hypertarget{headers_8h_add0e56a43cfb8aeac8475989e4d72e40}\label{headers_8h_add0e56a43cfb8aeac8475989e4d72e40} 
+\index{headers.h@{headers.h}!open\_output@{open\_output}}
+\index{open\_output@{open\_output}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{open\_output()}{open\_output()}}
+{\footnotesize\ttfamily FILE \texorpdfstring{$\ast$}{*} open\+\_\+output (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename }\end{DoxyParamCaption})}
+
+
+
+Opens a file for writing output. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Name of the output file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the opened file 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exits} & with code 1 if file cannot be opened \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{headers_8h_a8e5e0822f0773d62dfc2ba3d78d7a6ad}\label{headers_8h_a8e5e0822f0773d62dfc2ba3d78d7a6ad} 
+\index{headers.h@{headers.h}!print\_output@{print\_output}}
+\index{print\_output@{print\_output}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{print\_output()}{print\_output()}}
+{\footnotesize\ttfamily void print\+\_\+output (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{trajectory\+\_\+file,  }\item[{FILE \texorpdfstring{$\ast$}{*}}]{energy\+\_\+file,  }\item[{FILE \texorpdfstring{$\ast$}{*}}]{extended\+\_\+file,  }\item[{FILE \texorpdfstring{$\ast$}{*}}]{acceleration\+\_\+file,  }\item[{int}]{n\+\_\+atoms,  }\item[{int}]{step,  }\item[{double}]{kinetic\+\_\+energy,  }\item[{double}]{potential\+\_\+energy,  }\item[{double}]{total\+\_\+energy,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{coords,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{velocities,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{accelerations }\end{DoxyParamCaption})}
+
+
+
+Prints simulation output. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trajectory\+\_\+file} & File pointer for trajectory output \\
+\hline
+{\em energy\+\_\+file} & File pointer for energy output \\
+\hline
+{\em extended\+\_\+file} & File pointer for extended information \\
+\hline
+{\em acceleration\+\_\+file} & File pointer for acceleration data \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+{\em step} & Current simulation step \\
+\hline
+{\em kinetic\+\_\+energy} & Current kinetic energy \\
+\hline
+{\em potential\+\_\+energy} & Current potential energy \\
+\hline
+{\em total\+\_\+energy} & Current total energy \\
+\hline
+{\em coords} & Array of atomic coordinates \\
+\hline
+{\em velocities} & Array of atomic velocities \\
+\hline
+{\em accelerations} & Array of atomic accelerations \\
+\hline
+\end{DoxyParams}
+\Hypertarget{headers_8h_a92a91fd41ead73072da221d6bdcd1566}\label{headers_8h_a92a91fd41ead73072da221d6bdcd1566} 
+\index{headers.h@{headers.h}!read\_coords\_and\_masses@{read\_coords\_and\_masses}}
+\index{read\_coords\_and\_masses@{read\_coords\_and\_masses}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{read\_coords\_and\_masses()}{read\_coords\_and\_masses()}}
+{\footnotesize\ttfamily void read\+\_\+coords\+\_\+and\+\_\+masses (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{coords,  }\item[{double \texorpdfstring{$\ast$}{*}}]{masses,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Reads atomic coordinates and masses from an input file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Name of the input file \\
+\hline
+{\em coords} & 2D array to store coordinates \\
+\hline
+{\em masses} & Array to store atomic masses \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exits} & with code 1 if file cannot be opened \\
+\hline
+\end{DoxyExceptions}
+\texorpdfstring{$<$}{<} Dummy variable used by read\+\_\+coords\+\_\+and\+\_\+masses for reading the input\Hypertarget{headers_8h_a0a2791be32d07e29d35abebdfd77de42}\label{headers_8h_a0a2791be32d07e29d35abebdfd77de42} 
+\index{headers.h@{headers.h}!read\_natoms@{read\_natoms}}
+\index{read\_natoms@{read\_natoms}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{read\_natoms()}{read\_natoms()}}
+{\footnotesize\ttfamily int read\+\_\+natoms (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename }\end{DoxyParamCaption})}
+
+
+
+Reads the number of atoms from an input file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Name of the input file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of atoms 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exits} & with code 1 if file cannot be opened \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{headers_8h_a0e3f4db4744222634e6acfc96f941b5d}\label{headers_8h_a0e3f4db4744222634e6acfc96f941b5d} 
+\index{headers.h@{headers.h}!update\_positions@{update\_positions}}
+\index{update\_positions@{update\_positions}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{update\_positions()}{update\_positions()}}
+{\footnotesize\ttfamily void update\+\_\+positions (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{coords,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{velocities,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{accelerations,  }\item[{double}]{dt,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Updates atomic positions using Verlet algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em coords} & Array of atomic coordinates \\
+\hline
+{\em velocities} & Array of atomic velocities \\
+\hline
+{\em accelerations} & Array of atomic accelerations \\
+\hline
+{\em dt} & Time step \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Variable used by update\+\_\+positions for the square of dt\Hypertarget{headers_8h_a85dcdcb0205ca1879f000dbcb5556790}\label{headers_8h_a85dcdcb0205ca1879f000dbcb5556790} 
+\index{headers.h@{headers.h}!update\_velocities@{update\_velocities}}
+\index{update\_velocities@{update\_velocities}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{update\_velocities()}{update\_velocities()}}
+{\footnotesize\ttfamily void update\+\_\+velocities (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{velocities,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{accelerations,  }\item[{double}]{dt,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Updates atomic velocities using Verlet algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocities} & Array of atomic velocities \\
+\hline
+{\em accelerations} & Array of atomic accelerations \\
+\hline
+{\em dt} & Time step \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
+\Hypertarget{headers_8h_a7641eadcdccd4a0081eddf2f1bd8b6e6}\label{headers_8h_a7641eadcdccd4a0081eddf2f1bd8b6e6} 
+\index{headers.h@{headers.h}!validate\_atoms@{validate\_atoms}}
+\index{validate\_atoms@{validate\_atoms}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{validate\_atoms()}{validate\_atoms()}}
+{\footnotesize\ttfamily int validate\+\_\+atoms (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{masses,  }\item[{double \texorpdfstring{$\ast$}{*}}]{epsilon,  }\item[{double \texorpdfstring{$\ast$}{*}}]{sigma,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Validates that all atoms in the system are argon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em masses} & Array of atomic masses \\
+\hline
+{\em epsilon} & Pointer to store the epsilon parameter \\
+\hline
+{\em sigma} & Pointer to store the sigma parameter \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if all atoms are valid, 0 otherwise 
+\end{DoxyReturn}
