@@ -104,6 +104,10 @@ Macros</h2></td></tr>
 <tr class="separator:ac30e58c6e74fd76ab99b37c2ac8fabed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18d6e0cc449baa91e93ff6f2b73e5f6d" id="r_a18d6e0cc449baa91e93ff6f2b73e5f6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a18d6e0cc449baa91e93ff6f2b73e5f6d">ARGON_SIGMA</a>&#160;&#160;&#160;0.3345</td></tr>
 <tr class="separator:a18d6e0cc449baa91e93ff6f2b73e5f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a598a3330b3c21701223ee0ca14316eca" id="r_a598a3330b3c21701223ee0ca14316eca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>&#160;&#160;&#160;3.14159265358979323846</td></tr>
+<tr class="separator:a598a3330b3c21701223ee0ca14316eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c71a5e59a53413cd6c270266d63b031" id="r_a5c71a5e59a53413cd6c270266d63b031"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a5c71a5e59a53413cd6c270266d63b031">R</a>&#160;&#160;&#160;8.31446261815324</td></tr>
+<tr class="separator:a5c71a5e59a53413cd6c270266d63b031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -122,6 +126,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7641eadcdccd4a0081eddf2f1bd8b6e6" id="r_a7641eadcdccd4a0081eddf2f1bd8b6e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a7641eadcdccd4a0081eddf2f1bd8b6e6">validate_atoms</a> (double *masses, double *epsilon, double *sigma, int n_atoms)</td></tr>
 <tr class="memdesc:a7641eadcdccd4a0081eddf2f1bd8b6e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates that all atoms in the system are argon.  <br /></td></tr>
 <tr class="separator:a7641eadcdccd4a0081eddf2f1bd8b6e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e5f5b1f05efc28abba7f9836ae4601b" id="r_a8e5f5b1f05efc28abba7f9836ae4601b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a8e5f5b1f05efc28abba7f9836ae4601b">initialize_velocities</a> (double **velocities, double *masses, double temperature, int n_atoms)</td></tr>
+<tr class="memdesc:a8e5f5b1f05efc28abba7f9836ae4601b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize random velocities.  <br /></td></tr>
+<tr class="separator:a8e5f5b1f05efc28abba7f9836ae4601b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a132c79f5bb21c173d7ae0519783ebc4b" id="r_a132c79f5bb21c173d7ae0519783ebc4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a132c79f5bb21c173d7ae0519783ebc4b">calculate_distances</a> (double **coords, double **distances, int n_atoms)</td></tr>
 <tr class="memdesc:a132c79f5bb21c173d7ae0519783ebc4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates distances between all pairs of atoms.  <br /></td></tr>
 <tr class="separator:a132c79f5bb21c173d7ae0519783ebc4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +141,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a10fbdeea88c7a041b59bc8aac787dc6b" id="r_a10fbdeea88c7a041b59bc8aac787dc6b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a10fbdeea88c7a041b59bc8aac787dc6b">calculate_total_energy</a> (double kinetic_energy, double potential_energy)</td></tr>
 <tr class="memdesc:a10fbdeea88c7a041b59bc8aac787dc6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates total energy of the system.  <br /></td></tr>
 <tr class="separator:a10fbdeea88c7a041b59bc8aac787dc6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5915011fba12dff78effb59afea56913" id="r_a5915011fba12dff78effb59afea56913"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a5915011fba12dff78effb59afea56913">thermostat</a> (double kinetic_energy, double temperature, double **velocities, int n_atoms)</td></tr>
+<tr class="memdesc:a5915011fba12dff78effb59afea56913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Velocity-rescaling thermostat.  <br /></td></tr>
+<tr class="separator:a5915011fba12dff78effb59afea56913"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cb0a873cb12f7bb49f648d3ed16bc22" id="r_a4cb0a873cb12f7bb49f648d3ed16bc22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="headers_8h.html#a4cb0a873cb12f7bb49f648d3ed16bc22">check_energy</a> (double previous_energy, double total_energy, int step)</td></tr>
 <tr class="memdesc:a4cb0a873cb12f7bb49f648d3ed16bc22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks energy conservation between simulation steps.  <br /></td></tr>
 <tr class="separator:a4cb0a873cb12f7bb49f648d3ed16bc22"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,6 +216,34 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define CONSTANTS_H</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a598a3330b3c21701223ee0ca14316eca" name="a598a3330b3c21701223ee0ca14316eca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a598a3330b3c21701223ee0ca14316eca">&#9670;&#160;</a></span>PI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PI&#160;&#160;&#160;3.14159265358979323846</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c71a5e59a53413cd6c270266d63b031" name="a5c71a5e59a53413cd6c270266d63b031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c71a5e59a53413cd6c270266d63b031">&#9670;&#160;</a></span>R</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define R&#160;&#160;&#160;8.31446261815324</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -590,6 +628,57 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8e5f5b1f05efc28abba7f9836ae4601b" name="a8e5f5b1f05efc28abba7f9836ae4601b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e5f5b1f05efc28abba7f9836ae4601b">&#9670;&#160;</a></span>initialize_velocities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void initialize_velocities </td>
+          <td>(</td>
+          <td class="paramtype">double **&#160;</td>
+          <td class="paramname"><em>velocities</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>masses</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>temperature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n_atoms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize random velocities. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">velocities</td><td>Array of velocities </td></tr>
+    <tr><td class="paramname">masses</td><td>Array of masses </td></tr>
+    <tr><td class="paramname">temperature</td><td>Temperature </td></tr>
+    <tr><td class="paramname">n_atoms</td><td>Number of atoms </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="add0e56a43cfb8aeac8475989e4d72e40" name="add0e56a43cfb8aeac8475989e4d72e40"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#add0e56a43cfb8aeac8475989e4d72e40">&#9670;&#160;</a></span>open_output()</h2>
 
@@ -814,6 +903,57 @@ Functions</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">Exits</td><td>with code 1 if file cannot be opened </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5915011fba12dff78effb59afea56913" name="a5915011fba12dff78effb59afea56913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5915011fba12dff78effb59afea56913">&#9670;&#160;</a></span>thermostat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void thermostat </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>kinetic_energy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>temperature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double **&#160;</td>
+          <td class="paramname"><em>velocities</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n_atoms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Velocity-rescaling thermostat. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kinetic_energy</td><td>Kinetic energy </td></tr>
+    <tr><td class="paramname">temperature</td><td>Desired temperature </td></tr>
+    <tr><td class="paramname">velocities</td><td>Velocities </td></tr>
+    <tr><td class="paramname">n_atoms</td><td>Number of atoms </td></tr>
   </table>
   </dd>
 </dl>

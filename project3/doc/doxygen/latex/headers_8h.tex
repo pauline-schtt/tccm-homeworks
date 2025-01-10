@@ -5,7 +5,8 @@
 Contains the function headers.  
 
 
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -22,6 +23,10 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \#define \mbox{\hyperlink{headers_8h_ac30e58c6e74fd76ab99b37c2ac8fabed}{ARGON\+\_\+\+EPSILON}}~0.\+0661
 \item 
 \#define \mbox{\hyperlink{headers_8h_a18d6e0cc449baa91e93ff6f2b73e5f6d}{ARGON\+\_\+\+SIGMA}}~0.\+3345
+\item 
+\#define \mbox{\hyperlink{headers_8h_a598a3330b3c21701223ee0ca14316eca}{PI}}~3.\+14159265358979323846
+\item 
+\#define \mbox{\hyperlink{headers_8h_a5c71a5e59a53413cd6c270266d63b031}{R}}~8.\+31446261815324
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -36,6 +41,8 @@ void \mbox{\hyperlink{headers_8h_a92a91fd41ead73072da221d6bdcd1566}{read\+\_\+co
 \begin{DoxyCompactList}\small\item\em Reads atomic coordinates and masses from an input file. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{headers_8h_a7641eadcdccd4a0081eddf2f1bd8b6e6}{validate\+\_\+atoms}} (double \texorpdfstring{$\ast$}{*}masses, double \texorpdfstring{$\ast$}{*}epsilon, double \texorpdfstring{$\ast$}{*}sigma, int n\+\_\+atoms)
 \begin{DoxyCompactList}\small\item\em Validates that all atoms in the system are argon. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a8e5f5b1f05efc28abba7f9836ae4601b}{initialize\+\_\+velocities}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, double \texorpdfstring{$\ast$}{*}masses, double temperature, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Initialize random velocities. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{headers_8h_a132c79f5bb21c173d7ae0519783ebc4b}{calculate\+\_\+distances}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}distances, int n\+\_\+atoms)
 \begin{DoxyCompactList}\small\item\em Calculates distances between all pairs of atoms. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{headers_8h_ae215d330e8c33837567114786eeea448}{calculate\+\_\+potential\+\_\+energy}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}distances, int n\+\_\+atoms, double epsilon, double sigma)
@@ -44,6 +51,8 @@ double \mbox{\hyperlink{headers_8h_a49abd4221fa796fa76f3f40fc859585f}{calculate\
 \begin{DoxyCompactList}\small\item\em Calculates total kinetic energy of the system. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{headers_8h_a10fbdeea88c7a041b59bc8aac787dc6b}{calculate\+\_\+total\+\_\+energy}} (double kinetic\+\_\+energy, double potential\+\_\+energy)
 \begin{DoxyCompactList}\small\item\em Calculates total energy of the system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{headers_8h_a5915011fba12dff78effb59afea56913}{thermostat}} (double kinetic\+\_\+energy, double temperature, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Velocity-\/rescaling thermostat. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{headers_8h_a4cb0a873cb12f7bb49f648d3ed16bc22}{check\+\_\+energy}} (double previous\+\_\+energy, double total\+\_\+energy, int step)
 \begin{DoxyCompactList}\small\item\em Checks energy conservation between simulation steps. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{headers_8h_a5fa1805cc2f155e9ef2682deb6833977}{calculate\+\_\+accelerations}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}masses, int n\+\_\+atoms, double epsilon, double sigma, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}distances, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}accelerations)
@@ -87,6 +96,18 @@ Contains the function headers.
 \index{CONSTANTS\_H@{CONSTANTS\_H}!headers.h@{headers.h}}
 \doxysubsubsection{\texorpdfstring{CONSTANTS\_H}{CONSTANTS\_H}}
 {\footnotesize\ttfamily \#define CONSTANTS\+\_\+H}
+
+\Hypertarget{headers_8h_a598a3330b3c21701223ee0ca14316eca}\label{headers_8h_a598a3330b3c21701223ee0ca14316eca} 
+\index{headers.h@{headers.h}!PI@{PI}}
+\index{PI@{PI}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{PI}{PI}}
+{\footnotesize\ttfamily \#define PI~3.\+14159265358979323846}
+
+\Hypertarget{headers_8h_a5c71a5e59a53413cd6c270266d63b031}\label{headers_8h_a5c71a5e59a53413cd6c270266d63b031} 
+\index{headers.h@{headers.h}!R@{R}}
+\index{R@{R}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{R}{R}}
+{\footnotesize\ttfamily \#define R~8.\+31446261815324}
 
 
 
@@ -267,6 +288,27 @@ Frees a 2D array from memory.
 {\em rows} & Number of rows in the array \\
 \hline
 \end{DoxyParams}
+\Hypertarget{headers_8h_a8e5f5b1f05efc28abba7f9836ae4601b}\label{headers_8h_a8e5f5b1f05efc28abba7f9836ae4601b} 
+\index{headers.h@{headers.h}!initialize\_velocities@{initialize\_velocities}}
+\index{initialize\_velocities@{initialize\_velocities}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{initialize\_velocities()}{initialize\_velocities()}}
+{\footnotesize\ttfamily void initialize\+\_\+velocities (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{velocities,  }\item[{double \texorpdfstring{$\ast$}{*}}]{masses,  }\item[{double}]{temperature,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Initialize random velocities. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocities} & Array of velocities \\
+\hline
+{\em masses} & Array of masses \\
+\hline
+{\em temperature} & Temperature \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
 \Hypertarget{headers_8h_add0e56a43cfb8aeac8475989e4d72e40}\label{headers_8h_add0e56a43cfb8aeac8475989e4d72e40} 
 \index{headers.h@{headers.h}!open\_output@{open\_output}}
 \index{open\_output@{open\_output}!headers.h@{headers.h}}
@@ -376,6 +418,27 @@ Number of atoms
 {\em Exits} & with code 1 if file cannot be opened \\
 \hline
 \end{DoxyExceptions}
+\Hypertarget{headers_8h_a5915011fba12dff78effb59afea56913}\label{headers_8h_a5915011fba12dff78effb59afea56913} 
+\index{headers.h@{headers.h}!thermostat@{thermostat}}
+\index{thermostat@{thermostat}!headers.h@{headers.h}}
+\doxysubsubsection{\texorpdfstring{thermostat()}{thermostat()}}
+{\footnotesize\ttfamily void thermostat (\begin{DoxyParamCaption}\item[{double}]{kinetic\+\_\+energy,  }\item[{double}]{temperature,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{velocities,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Velocity-\/rescaling thermostat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kinetic\+\_\+energy} & Kinetic energy \\
+\hline
+{\em temperature} & Desired temperature \\
+\hline
+{\em velocities} & Velocities \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
 \Hypertarget{headers_8h_a0e3f4db4744222634e6acfc96f941b5d}\label{headers_8h_a0e3f4db4744222634e6acfc96f941b5d} 
 \index{headers.h@{headers.h}!update\_positions@{update\_positions}}
 \index{update\_positions@{update\_positions}!headers.h@{headers.h}}

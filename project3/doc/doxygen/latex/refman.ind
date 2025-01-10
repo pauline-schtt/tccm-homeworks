@@ -2,44 +2,44 @@
 
   \item {allocate\_2d\_array}
     \subitem {functions.c}, \hyperpage{4}
-    \subitem {headers.h}, \hyperpage{13}
+    \subitem {headers.h}, \hyperpage{15}
   \item {ARGON\_EPSILON}
-    \subitem {headers.h}, \hyperpage{13}
+    \subitem {headers.h}, \hyperpage{14}
   \item {ARGON\_MASS}
-    \subitem {headers.h}, \hyperpage{13}
+    \subitem {headers.h}, \hyperpage{14}
   \item {ARGON\_SIGMA}
-    \subitem {headers.h}, \hyperpage{13}
+    \subitem {headers.h}, \hyperpage{15}
 
   \indexspace
 
   \item {calculate\_accelerations}
     \subitem {functions.c}, \hyperpage{5}
-    \subitem {headers.h}, \hyperpage{14}
+    \subitem {headers.h}, \hyperpage{15}
   \item {calculate\_distances}
     \subitem {functions.c}, \hyperpage{5}
-    \subitem {headers.h}, \hyperpage{14}
+    \subitem {headers.h}, \hyperpage{16}
   \item {calculate\_kinetic\_energy}
     \subitem {functions.c}, \hyperpage{5}
-    \subitem {headers.h}, \hyperpage{14}
+    \subitem {headers.h}, \hyperpage{16}
   \item {calculate\_potential\_energy}
     \subitem {functions.c}, \hyperpage{6}
-    \subitem {headers.h}, \hyperpage{15}
+    \subitem {headers.h}, \hyperpage{17}
   \item {calculate\_total\_energy}
     \subitem {functions.c}, \hyperpage{6}
-    \subitem {headers.h}, \hyperpage{15}
+    \subitem {headers.h}, \hyperpage{17}
   \item {calculate\_U}
     \subitem {functions.c}, \hyperpage{7}
   \item {check\_energy}
     \subitem {functions.c}, \hyperpage{7}
-    \subitem {headers.h}, \hyperpage{16}
+    \subitem {headers.h}, \hyperpage{17}
   \item {CONSTANTS\_H}
-    \subitem {headers.h}, \hyperpage{13}
+    \subitem {headers.h}, \hyperpage{15}
 
   \indexspace
 
   \item {free\_2d\_array}
     \subitem {functions.c}, \hyperpage{7}
-    \subitem {headers.h}, \hyperpage{16}
+    \subitem {headers.h}, \hyperpage{18}
   \item {functions.c}, \hyperpage{3}
     \subitem {allocate\_2d\_array}, \hyperpage{4}
     \subitem {calculate\_accelerations}, \hyperpage{5}
@@ -50,37 +50,49 @@
     \subitem {calculate\_U}, \hyperpage{7}
     \subitem {check\_energy}, \hyperpage{7}
     \subitem {free\_2d\_array}, \hyperpage{7}
+    \subitem {initialize\_velocities}, \hyperpage{8}
     \subitem {lennard\_jones\_potential}, \hyperpage{8}
     \subitem {open\_output}, \hyperpage{8}
     \subitem {print\_output}, \hyperpage{9}
-    \subitem {read\_coords\_and\_masses}, \hyperpage{9}
+    \subitem {read\_coords\_and\_masses}, \hyperpage{10}
     \subitem {read\_natoms}, \hyperpage{10}
-    \subitem {update\_positions}, \hyperpage{10}
-    \subitem {update\_velocities}, \hyperpage{11}
-    \subitem {validate\_atoms}, \hyperpage{11}
+    \subitem {thermostat}, \hyperpage{10}
+    \subitem {update\_positions}, \hyperpage{12}
+    \subitem {update\_velocities}, \hyperpage{12}
+    \subitem {validate\_atoms}, \hyperpage{12}
 
   \indexspace
 
-  \item {headers.h}, \hyperpage{11}
-    \subitem {allocate\_2d\_array}, \hyperpage{13}
-    \subitem {ARGON\_EPSILON}, \hyperpage{13}
-    \subitem {ARGON\_MASS}, \hyperpage{13}
-    \subitem {ARGON\_SIGMA}, \hyperpage{13}
-    \subitem {calculate\_accelerations}, \hyperpage{14}
-    \subitem {calculate\_distances}, \hyperpage{14}
-    \subitem {calculate\_kinetic\_energy}, \hyperpage{14}
-    \subitem {calculate\_potential\_energy}, \hyperpage{15}
-    \subitem {calculate\_total\_energy}, \hyperpage{15}
-    \subitem {check\_energy}, \hyperpage{16}
-    \subitem {CONSTANTS\_H}, \hyperpage{13}
-    \subitem {free\_2d\_array}, \hyperpage{16}
-    \subitem {open\_output}, \hyperpage{16}
-    \subitem {print\_output}, \hyperpage{17}
-    \subitem {read\_coords\_and\_masses}, \hyperpage{17}
-    \subitem {read\_natoms}, \hyperpage{18}
-    \subitem {update\_positions}, \hyperpage{18}
-    \subitem {update\_velocities}, \hyperpage{19}
-    \subitem {validate\_atoms}, \hyperpage{19}
+  \item {headers.h}, \hyperpage{13}
+    \subitem {allocate\_2d\_array}, \hyperpage{15}
+    \subitem {ARGON\_EPSILON}, \hyperpage{14}
+    \subitem {ARGON\_MASS}, \hyperpage{14}
+    \subitem {ARGON\_SIGMA}, \hyperpage{15}
+    \subitem {calculate\_accelerations}, \hyperpage{15}
+    \subitem {calculate\_distances}, \hyperpage{16}
+    \subitem {calculate\_kinetic\_energy}, \hyperpage{16}
+    \subitem {calculate\_potential\_energy}, \hyperpage{17}
+    \subitem {calculate\_total\_energy}, \hyperpage{17}
+    \subitem {check\_energy}, \hyperpage{17}
+    \subitem {CONSTANTS\_H}, \hyperpage{15}
+    \subitem {free\_2d\_array}, \hyperpage{18}
+    \subitem {initialize\_velocities}, \hyperpage{18}
+    \subitem {open\_output}, \hyperpage{18}
+    \subitem {PI}, \hyperpage{15}
+    \subitem {print\_output}, \hyperpage{19}
+    \subitem {R}, \hyperpage{15}
+    \subitem {read\_coords\_and\_masses}, \hyperpage{19}
+    \subitem {read\_natoms}, \hyperpage{20}
+    \subitem {thermostat}, \hyperpage{20}
+    \subitem {update\_positions}, \hyperpage{21}
+    \subitem {update\_velocities}, \hyperpage{21}
+    \subitem {validate\_atoms}, \hyperpage{21}
+
+  \indexspace
+
+  \item {initialize\_velocities}
+    \subitem {functions.c}, \hyperpage{8}
+    \subitem {headers.h}, \hyperpage{18}
 
   \indexspace
 
@@ -90,44 +102,54 @@
   \indexspace
 
   \item {main}
-    \subitem {main.c}, \hyperpage{21}
-  \item {main.c}, \hyperpage{20}
-    \subitem {main}, \hyperpage{21}
+    \subitem {main.c}, \hyperpage{23}
+  \item {main.c}, \hyperpage{22}
+    \subitem {main}, \hyperpage{23}
 
   \indexspace
 
   \item {open\_output}
     \subitem {functions.c}, \hyperpage{8}
-    \subitem {headers.h}, \hyperpage{16}
+    \subitem {headers.h}, \hyperpage{18}
 
   \indexspace
 
+  \item {PI}
+    \subitem {headers.h}, \hyperpage{15}
   \item {print\_output}
     \subitem {functions.c}, \hyperpage{9}
-    \subitem {headers.h}, \hyperpage{17}
+    \subitem {headers.h}, \hyperpage{19}
 
   \indexspace
 
+  \item {R}
+    \subitem {headers.h}, \hyperpage{15}
   \item {read\_coords\_and\_masses}
-    \subitem {functions.c}, \hyperpage{9}
-    \subitem {headers.h}, \hyperpage{17}
+    \subitem {functions.c}, \hyperpage{10}
+    \subitem {headers.h}, \hyperpage{19}
   \item {read\_natoms}
     \subitem {functions.c}, \hyperpage{10}
-    \subitem {headers.h}, \hyperpage{18}
+    \subitem {headers.h}, \hyperpage{20}
+
+  \indexspace
+
+  \item {thermostat}
+    \subitem {functions.c}, \hyperpage{10}
+    \subitem {headers.h}, \hyperpage{20}
 
   \indexspace
 
   \item {update\_positions}
-    \subitem {functions.c}, \hyperpage{10}
-    \subitem {headers.h}, \hyperpage{18}
+    \subitem {functions.c}, \hyperpage{12}
+    \subitem {headers.h}, \hyperpage{21}
   \item {update\_velocities}
-    \subitem {functions.c}, \hyperpage{11}
-    \subitem {headers.h}, \hyperpage{19}
+    \subitem {functions.c}, \hyperpage{12}
+    \subitem {headers.h}, \hyperpage{21}
 
   \indexspace
 
   \item {validate\_atoms}
-    \subitem {functions.c}, \hyperpage{11}
-    \subitem {headers.h}, \hyperpage{19}
+    \subitem {functions.c}, \hyperpage{12}
+    \subitem {headers.h}, \hyperpage{21}
 
 \end{theindex}

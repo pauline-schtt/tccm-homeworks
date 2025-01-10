@@ -10,7 +10,8 @@ Contains the main program.
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$time.\+h$>$}\newline
 {\ttfamily \#include "{}headers.\+h"{}}\newline
-Include dependency graph for main.\+c\+:\nopagebreak
+Include dependency graph for main.\+c\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -49,6 +50,10 @@ int Returns 0 upon successful execution.
 \doxysubsection{Variables}
 
 \begin{itemize}
+    \item \texttt{int n\_steps}: Number of simulation steps.
+    \item \texttt{double dt}: Time step.
+    \item \texttt{double temperature}: Temperature.
+    \item \texttt{int thermo}: If set to 1, the thermostat is activated, if set to 0 it is deactivated.
     \item \texttt{const char* filename}: Name of the input file.
     \item \texttt{int n\_atoms}: Number of atoms.
     \item \texttt{double** coords}: 2D array of coordinates consisting of x, y, z for each atom.
@@ -66,10 +71,9 @@ int Returns 0 upon successful execution.
     \item \texttt{FILE* extended\_file}: File where the extended trajectory with velocities is written.
     \item \texttt{const char* acceleration\_name}: Name of the file where the accelerations are written.
     \item \texttt{FILE* acceleration\_file}: File where the accelerations are written.
-    \item \texttt{int n\_steps}: Number of simulation steps.
-    \item \texttt{double dt}: Time step.
     \item \texttt{double kinetic\_energy}: Variable for storing the kinetic energy.
     \item \texttt{double potential\_energy}: Variable for storing the potential energy.
     \item \texttt{double total\_energy}: Variable for storing the total energy.
     \item \texttt{double previous\_energy}: Variable for storing the total energy of the previous step.Name of the input file
 \end{itemize}
+

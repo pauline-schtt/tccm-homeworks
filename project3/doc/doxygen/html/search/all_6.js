@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['open_5foutput_0',['open_output',['../functions_8c.html#add0e56a43cfb8aeac8475989e4d72e40',1,'open_output(const char *filename):&#160;functions.c'],['../headers_8h.html#add0e56a43cfb8aeac8475989e4d72e40',1,'open_output(const char *filename):&#160;functions.c']]]
+  ['main_0',['main',['../main_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.c']]],
+  ['main_2ec_1',['main.c',['../main_8c.html',1,'']]]
 ];

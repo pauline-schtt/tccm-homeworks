@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lennard_5fjones_5fpotential_0',['lennard_jones_potential',['../functions_8c.html#a53ee62631ec059c0a2e639170eb17761',1,'functions.c']]]
+  ['initialize_5fvelocities_0',['initialize_velocities',['../functions_8c.html#a8e5f5b1f05efc28abba7f9836ae4601b',1,'initialize_velocities(double **velocities, double *masses, double temperature, int n_atoms):&#160;functions.c'],['../headers_8h.html#a8e5f5b1f05efc28abba7f9836ae4601b',1,'initialize_velocities(double **velocities, double *masses, double temperature, int n_atoms):&#160;functions.c']]]
 ];

@@ -9,7 +9,8 @@ Contains the functions associated with the molecular dynamics simulation.
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$math.\+h$>$}\newline
 {\ttfamily \#include "{}headers.\+h"{}}\newline
-Include dependency graph for functions.\+c\+:\nopagebreak
+Include dependency graph for functions.\+c\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -33,6 +34,8 @@ FILE \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{functions_8c_add0e56a43cfb8aeac
 \begin{DoxyCompactList}\small\item\em Opens a file for writing output. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{functions_8c_a8e5e0822f0773d62dfc2ba3d78d7a6ad}{print\+\_\+output}} (FILE \texorpdfstring{$\ast$}{*}trajectory\+\_\+file, FILE \texorpdfstring{$\ast$}{*}energy\+\_\+file, FILE \texorpdfstring{$\ast$}{*}extended\+\_\+file, FILE \texorpdfstring{$\ast$}{*}acceleration\+\_\+file, int n\+\_\+atoms, int step, double kinetic\+\_\+energy, double potential\+\_\+energy, double total\+\_\+energy, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}accelerations)
 \begin{DoxyCompactList}\small\item\em Prints simulation output. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{functions_8c_a8e5f5b1f05efc28abba7f9836ae4601b}{initialize\+\_\+velocities}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, double \texorpdfstring{$\ast$}{*}masses, double temperature, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Initialize random velocities. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{functions_8c_a132c79f5bb21c173d7ae0519783ebc4b}{calculate\+\_\+distances}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}distances, int n\+\_\+atoms)
 \begin{DoxyCompactList}\small\item\em Calculates distances between all pairs of atoms. \end{DoxyCompactList}\item 
 static double \mbox{\hyperlink{functions_8c_a53ee62631ec059c0a2e639170eb17761}{lennard\+\_\+jones\+\_\+potential}} (double r, double epsilon, double sigma)
@@ -45,6 +48,8 @@ double \mbox{\hyperlink{functions_8c_a10fbdeea88c7a041b59bc8aac787dc6b}{calculat
 \begin{DoxyCompactList}\small\item\em Calculates total energy of the system. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{functions_8c_a4cb0a873cb12f7bb49f648d3ed16bc22}{check\+\_\+energy}} (double previous\+\_\+energy, double total\+\_\+energy, int step)
 \begin{DoxyCompactList}\small\item\em Checks energy conservation between simulation steps. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{functions_8c_a5915011fba12dff78effb59afea56913}{thermostat}} (double kinetic\+\_\+energy, double temperature, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}velocities, int n\+\_\+atoms)
+\begin{DoxyCompactList}\small\item\em Velocity-\/rescaling thermostat. \end{DoxyCompactList}\item 
 static double \mbox{\hyperlink{functions_8c_a5a274d0146dda1b824cce8ee0a662863}{calculate\+\_\+U}} (double r, double epsilon, double sigma)
 \begin{DoxyCompactList}\small\item\em Helper function for acceleration calculation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{functions_8c_a5fa1805cc2f155e9ef2682deb6833977}{calculate\+\_\+accelerations}} (double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}coords, double \texorpdfstring{$\ast$}{*}masses, int n\+\_\+atoms, double epsilon, double sigma, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}distances, double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}accelerations)
@@ -259,6 +264,27 @@ Frees a 2D array from memory.
 {\em rows} & Number of rows in the array \\
 \hline
 \end{DoxyParams}
+\Hypertarget{functions_8c_a8e5f5b1f05efc28abba7f9836ae4601b}\label{functions_8c_a8e5f5b1f05efc28abba7f9836ae4601b} 
+\index{functions.c@{functions.c}!initialize\_velocities@{initialize\_velocities}}
+\index{initialize\_velocities@{initialize\_velocities}!functions.c@{functions.c}}
+\doxysubsubsection{\texorpdfstring{initialize\_velocities()}{initialize\_velocities()}}
+{\footnotesize\ttfamily void initialize\+\_\+velocities (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{velocities,  }\item[{double \texorpdfstring{$\ast$}{*}}]{masses,  }\item[{double}]{temperature,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Initialize random velocities. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocities} & Array of velocities \\
+\hline
+{\em masses} & Array of masses \\
+\hline
+{\em temperature} & Temperature \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
 \Hypertarget{functions_8c_a53ee62631ec059c0a2e639170eb17761}\label{functions_8c_a53ee62631ec059c0a2e639170eb17761} 
 \index{functions.c@{functions.c}!lennard\_jones\_potential@{lennard\_jones\_potential}}
 \index{lennard\_jones\_potential@{lennard\_jones\_potential}!functions.c@{functions.c}}
@@ -390,6 +416,27 @@ Number of atoms
 {\em Exits} & with code 1 if file cannot be opened \\
 \hline
 \end{DoxyExceptions}
+\Hypertarget{functions_8c_a5915011fba12dff78effb59afea56913}\label{functions_8c_a5915011fba12dff78effb59afea56913} 
+\index{functions.c@{functions.c}!thermostat@{thermostat}}
+\index{thermostat@{thermostat}!functions.c@{functions.c}}
+\doxysubsubsection{\texorpdfstring{thermostat()}{thermostat()}}
+{\footnotesize\ttfamily void thermostat (\begin{DoxyParamCaption}\item[{double}]{kinetic\+\_\+energy,  }\item[{double}]{temperature,  }\item[{double \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{velocities,  }\item[{int}]{n\+\_\+atoms }\end{DoxyParamCaption})}
+
+
+
+Velocity-\/rescaling thermostat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kinetic\+\_\+energy} & Kinetic energy \\
+\hline
+{\em temperature} & Desired temperature \\
+\hline
+{\em velocities} & Velocities \\
+\hline
+{\em n\+\_\+atoms} & Number of atoms \\
+\hline
+\end{DoxyParams}
 \Hypertarget{functions_8c_a0e3f4db4744222634e6acfc96f941b5d}\label{functions_8c_a0e3f4db4744222634e6acfc96f941b5d} 
 \index{functions.c@{functions.c}!update\_positions@{update\_positions}}
 \index{update\_positions@{update\_positions}!functions.c@{functions.c}}
